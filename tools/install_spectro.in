@@ -136,15 +136,15 @@ echo Installing FFTW at $(date)
 
 # Install BOOST.
 
-echo Installing BOOST at $(date)
+### echo Installing BOOST at $(date)
 
-@boost@
+### @boost@
 
 # Install HARP.
 
-echo Installing HARP at $(date)
+### echo Installing HARP at $(date)
 
-@harp@
+### @harp@
 
 # Install PyMPIT for environment testing
 
@@ -154,13 +154,13 @@ echo Installing PyMPIT at $(date)
 
 # GalSim and dependencies
 
-echo Installing GalSim and friends at $(date)
+### echo Installing GalSim and friends at $(date)
 
-@scons@
+### @scons@
 
-@tmv@
+### @tmv@
 
-@galsim@
+### @galsim@
 
 # Remove patches if needed
 

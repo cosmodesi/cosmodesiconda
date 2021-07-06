@@ -34,6 +34,7 @@ conda install --copy --yes \
     cudatoolkit \
 && conda install --copy --yes -c conda-forge \
     fitsio \
+    galsim \
     dask \
     distributed \
     papermill \
