@@ -3,13 +3,14 @@ echo Current time $(date) Installing conda packages
 echo condadir is $CONDADIR
 
 conda install --copy --yes -c conda-forge \
+    future \
     numpy \
     scipy \
     matplotlib \
     fitsio \
     h5py \
     cython \
-    pyfftw \
+    pyfftw=0.12 \
     sympy \
     numexpr \
     healpy \
@@ -18,6 +19,7 @@ conda install --copy --yes -c conda-forge \
     ipython \
     jupyter \
     ipywidgets \
+    wurlitzer \
 && mplrc="$CONDADIR/lib/python$PYVERSION/site-packages/matplotlib/mpl-data/matplotlibrc"; \
     cat ${mplrc} | sed -e "s#^backend.*#backend : TkAgg#" > ${mplrc}.tmp; \
     mv ${mplrc}.tmp ${mplrc} \
