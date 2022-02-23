@@ -1,22 +1,22 @@
 #%Module###<-magic cookie ####################################################
 ##
-##   Software dependencies for the DESI spectroscopic pipeline.
+##   Software dependencies for the DESI cosmological pipeline.
 ##
 ##
 # variables for Tcl script use only
 set     version  _DCONDAVERSION_
 
-module-whatis "Loads software dependencies for DESI spectro pipeline."
+module-whatis "Loads software dependencies for DESI cosmological pipeline."
 
 proc ModulesHelp { } {
   global version
   puts stderr "\t\t DESI software dependencies - Version $version\n"
   puts stderr "\t This loads a conda environment and other compiled"
-  puts stderr "\t software needed by the spectro pipeline."
+  puts stderr "\t software needed by the cosmological pipeline."
   puts stderr ""
 }
 
-conflict desiconda
+conflict cosmodesiconda
 
 # This is set by OS python and gives us problems.
 unsetenv PYTHONSTARTUP
@@ -25,8 +25,8 @@ unsetenv PYTHONSTARTUP
 prepend-path PATH _CONDADIR_/bin
 prepend-path PATH _AUXDIR_/bin
 setenv PYTHONPATH _CONDADIR_/lib/python_PYVERSION_/site-packages
-setenv DESICONDA _CONDADIR_
-setenv DESICONDA_VERSION _DCONDAVERSION_
+setenv COSMODESICONDA _CONDADIR_
+setenv COSMODESICONDA_VERSION _DCONDAVERSION_
 
 # Add location of conda environment shared objects to search path
 prepend-path LD_LIBRARY_PATH _AUXDIR_/lib
@@ -56,6 +56,8 @@ if [ module-info mode load ] {
   module unload darshan            # not necessary and suspected to generate overhead
   module unload altd               # not necessary and suspected to cause random job hangs
   module unload craype-hugepages2M # https://docs.nersc.gov/development/languages/python/faq-troubleshooting
+  module load gsl
+  module load openmpi
 }
 
 # libraries that may need to be pre loaded 

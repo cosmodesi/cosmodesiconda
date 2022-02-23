@@ -3,58 +3,21 @@ echo Current time $(date) Installing conda packages
 echo condadir is $CONDADIR
 
 conda install --copy --yes -c conda-forge \
-    astropy \
-    speclite \
-    fitsio \
-    fitsverify \
-    libblas=*=*mkl \
-    dask \
-    distributed \
-    papermill \
-    nose \
-    requests \
-    future \
-    cython \
-    cmake \
     numpy \
     scipy \
-    intel-openmp \
-    mkl=2020.0 \
     matplotlib \
-    seaborn \
-    pyyaml \
-    pytest-astropy \
-    hdf5 \
+    fitsio \
     h5py \
-    psutil \
-    ephem \
-    psycopg2 \
-    pytest \
-    pytest-cov \
-    numba \
-    sqlalchemy \
+    cython \
+    pyfftw \
+    sympy \
+    numexpr \
+    healpy \
+    astropy \
     scikit-learn \
-    scikit-image \
     ipython \
     jupyter \
     ipywidgets \
-    bokeh \
-    wurlitzer \
-    certipy \
-    sphinx \
-    iminuit \
-    cudatoolkit \
-    cupy \
-    healpy \
-    photutils \
-    xlrd \
-    coveralls \
-    configobj \
-    cupy \
-    line_profiler \
-    galsim \
-    altair \
-    vega_datasets \
 && mplrc="$CONDADIR/lib/python$PYVERSION/site-packages/matplotlib/mpl-data/matplotlibrc"; \
     cat ${mplrc} | sed -e "s#^backend.*#backend : TkAgg#" > ${mplrc}.tmp; \
     mv ${mplrc}.tmp ${mplrc} \

@@ -6,7 +6,7 @@ while getopts "v" opt; do
 	   ;;
     esac
 done
-echo Starting desiconda installation at $(date)
+echo Starting cosmodesiconda installation at $(date)
 SECONDS=0
 
 # Defaults
@@ -22,7 +22,6 @@ scriptname=$(basename $0)
 fullscript="${topdir}/${scriptname}"
 
 # Convenience environment variables
-SWAPPRGENV=$topdir/scripts/SwapPrgEnv.sh
 
 CONFDIR=$topdir/conf
 
@@ -35,10 +34,10 @@ export PATH=$CONDADIR/bin:$PATH
 source $CONFIGUREENV
 
 # Set installation directories
-DESICONDA=$PREFIX/$DCONDAVERSION
-CONDADIR=$DESICONDA/conda
-AUXDIR=$DESICONDA/aux
-MODULEDIR=$DESICONDA/modulefiles/desiconda
+COSMODESICONDA=$PREFIX/$DCONDAVERSION
+CONDADIR=$COSMODESICONDA/conda
+AUXDIR=$COSMODESICONDA/aux
+MODULEDIR=$COSMODESICONDA/modulefiles/cosmodesiconda
 
 # Install conda root environment
 echo Installing conda root environment at $(date)
@@ -72,20 +71,20 @@ chgrp -R $GRP $CONDADIR
 chmod -R u=rwX,g=rX,o-rwx $CONDADIR
 
 # Install modulefile
-echo Installing the desiconda modulefile at $(date)
+echo Installing the cosmodesiconda modulefile at $(date)
 
 mkdir -p $MODULEDIR
 
-cp $topdir/modulefile.gen desiconda.module
+cp $topdir/modulefile.gen cosmodesiconda.module
 
-sed -i 's@_CONDADIR_@'"$CONDADIR"'@g' desiconda.module
-sed -i 's@_AUXDIR_@'"$AUXDIR"'@g' desiconda.module
-sed -i 's@_DCONDAVERSION_@'"$DCONDAVERSION"'@g' desiconda.module
-sed -i 's@_PYVERSION_@'"$PYVERSION"'@g' desiconda.module
-sed -i 's@_CONDAPRGENV_@'"$CONDAPRGENV"'@g' desiconda.module
+sed -i 's@_CONDADIR_@'"$CONDADIR"'@g' cosmodesiconda.module
+sed -i 's@_AUXDIR_@'"$AUXDIR"'@g' cosmodesiconda.module
+sed -i 's@_DCONDAVERSION_@'"$DCONDAVERSION"'@g' cosmodesiconda.module
+sed -i 's@_PYVERSION_@'"$PYVERSION"'@g' cosmodesiconda.module
+sed -i 's@_CONDAPRGENV_@'"$CONDAPRGENV"'@g' cosmodesiconda.module
 
-cp desiconda.module $MODULEDIR/$DCONDAVERSION
-cp desiconda.modversion $MODULEDIR/.version_$DCONDAVERSION
+cp cosmodesiconda.module $MODULEDIR/$DCONDAVERSION
+cp cosmodesiconda.modversion $MODULEDIR/.version_$DCONDAVERSION
 
 chgrp -R $GRP $MODULEDIR
 chmod -R u=rwX,g=rX,o-rwx $MODULEDIR

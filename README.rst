@@ -1,38 +1,51 @@
-=========
-desiconda
-=========
+==============
+cosmodesiconda
+==============
 
 Introduction
 ------------
 
-This package contains scripts for installing conda and all compiled
-dependencies needed by the spectroscopic pipeline.
+This package, forked from desihub/desiconda and desihub/desimodules,
+contains scripts for installing conda and all compiled
+dependencies needed by the cosmological pipeline.
+
+
+End-user: loading the current (main) environment (cosmodesiconda + cosmodesimodules)
+------------------------------------------------------------------------------------
+
+To setup environment::
+
+    source /global/common/software/desi/users/adematti/cosmodesi_environment.sh main
+
+To add environment as juyter kernel::
+    
+    ${COSMODESIMODULES}/install_jupyter_kernel.sh main
+
+
+cosmodesiconda
+--------------
 
 Quick start installation 
-------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-To install desiconda and load module::
+To install cosmodesiconda and load module::
 
     # set target 
-    prefix=/global/common/software/desi/users/$USER/desiconda
+    prefix=/global/common/software/desi/users/$USER/cosmodesiconda
     mkdir -p $prefix 
 
-    local_copy=/global/cfs/cdirs/desi/users/$USER/desiconda
-    git clone https://github.com/desihub/desiconda $local_copy
+    local_copy=/global/cfs/cdirs/desi/users/$USER/cosmodesiconda
+    git clone https://github.com/cosmodesi/cosmodesiconda $local_copy
     cd $local_copy
 
     unset PYTHONPATH
-    export DCONDAVERSION=$(date '+%Y%m%d')-2.0.1dev
+    export DCONDAVERSION=$(date '+%Y%m%d')-1.0.0
     PREFIX=$prefix ./install.sh |& tee install.log
     module use $prefix/$DCONDAVERSION/modulefiles
-    module load desiconda
-
-Then install a suite of desispec, desiutil, etc. modules::
-
-    source scripts/bootstrap-desi.sh
+    module load cosmodesiconda
     
 Example
-----------------
+~~~~~~~
 
 Imagine you wanted to install a set of dependencies for DESI software on a
 cluster (rather than manually getting all the dependencies in place).  
@@ -40,9 +53,9 @@ You plan on installing desiconda in your home directory ($HOME/software/desi)
 and you want to have the custom string "my-desiconda" associated with your
 installation.
 
-You git-cloned desiconda using::
+You git-cloned cosmodesiconda using::
 
-    git clone https://github.com/desihub/desiconda /path-to-git-clone/desiconda
+    git clone https://github.com/cosmodesi/cosmodesiconda /path-to-git-clone/cosmodesiconda
 
 You also put all the commands for dependencies you want to install and
 customizations in the "conf/mypkgs-pkgs.sh" and "conf/myenv-env.sh" files
@@ -58,15 +71,15 @@ Also the output will be very long, so pipe it to a log file::
 
 If everything worked, then you can see your new desiconda install with::
 
-    $> module use $HOME/software/desi/desiconda/$dcondaversion/modulefiles
-    $> module avail desiconda
+    $> module use $HOME/software/desi/cosmodesiconda/$dcondaversion/modulefiles
+    $> module avail cosmodesiconda
 
 And you can load it with::
 
-    $> module load desiconda/$dcondaversion 
+    $> module load cosmodesiconda/$dcondaversion
 
 Configuration
-~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~
 
 If environment and pacakge files (conf/[envtag]-env.sh and conf/[pkgtag]-pkgs.sh) for
 your use case already exists in the "conf" directory, then
@@ -81,8 +94,21 @@ Contents of installation
 The installation directory (assuming the installation script was called with 
 $DCONDAVERSION and $PREFIX) will contain directories and files::
 
-    $PREFIX/desiconda/$DCONDAVERSION/conda
-    $PREFIX/desiconda/$DCONDAVERSION/aux
-    $PREFIX/desiconda/$DCONDAVERSION/modulefiles/desiconda/$DCONDAVERSION
-    $PREFIX/desiconda/$DCONDAVERSION/modulefiles/desiconda/.version_$DCONDAVERSION
+    $PREFIX/cosmodesiconda/$DCONDAVERSION/conda
+    $PREFIX/cosmodesiconda/$DCONDAVERSION/aux
+    $PREFIX/cosmodesiconda/$DCONDAVERSION/modulefiles/cosmodesiconda/$DCONDAVERSION
+    $PREFIX/cosmodesiconda/$DCONDAVERSION/modulefiles/cosmodesiconda/.version_$DCONDAVERSION
 
+
+cosmodesimodules
+----------------
+
+Then install a suite of pyrecon, pycorr, etc. packages::
+
+    ./cosmodesimodules/install_pkgs.sh
+ 
+Contents of installation
+~~~~~~~~~~~~~~~~~~~~~~~~
+Packages are installed in::
+
+    $PREFIX/cosmodesiconda/$DCONDAVERSION/code
