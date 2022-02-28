@@ -8,7 +8,7 @@ if ( `basename ${SHELL}` == "csh" || `basename ${SHELL}` == "tcsh" ) then
     else
         set _desi_release = ''
     endif
-    set _desi_startup = /global/common/software/desi/users/adematti/${NERSC_HOST}/cosmodesiconda/startup/modulefiles
+    set _desi_startup = /global/cfs/cdirs/desi/users/adematti/${NERSC_HOST}/cosmodesiconda/startup/modulefiles
     if ( ${?DESI_ROOT} ) then
         # Do nothing, successfully.
         :

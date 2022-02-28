@@ -22,7 +22,7 @@ proc ModulesHelp { } {
 set product cosmodesimodules
 set version current
 conflict $product
-set cosmodesiconda_version 20220223-1.0.0
+set cosmodesiconda_version 20220227-1.0.0
 #
 # The line below is another part of the Modules help system.  You can
 # modify the part in quotes if you really need to, but most products should
@@ -37,7 +37,7 @@ module-whatis "Sets up $product/$version in your environment."
 # If you are not working at NERSC, but still want to use Modules, you
 # will need to set the DESI_PRODUCT_ROOT environment variable
 #
-set default_root /global/common/software/desi/users/adematti/$env(NERSC_HOST)/cosmodesiconda
+set default_root /global/cfs/cdirs/desi/users/adematti/$env(NERSC_HOST)/cosmodesiconda
 if {[info exists env(DESI_PRODUCT_ROOT)]} {
     set code_root $env(DESI_PRODUCT_ROOT)/code
 } else {
@@ -72,6 +72,7 @@ module load pyrecon/1.0.0
 module load pycorr/1.0.0
 module load Corrfunc/desi-1.0.0
 module load pypower/1.0.0
+module load abacusutils/master
 
 # may solve some OpenMP instabilities at NERSC
 setenv KMP_INIT_AT_FORK FALSE

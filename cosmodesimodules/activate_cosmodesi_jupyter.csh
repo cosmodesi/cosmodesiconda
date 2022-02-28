@@ -9,7 +9,7 @@
 # {
 # "language": "python",
 # "argv": [
-#   "/global/common/software/desi/users/adematti/activate_cosmodesi_jupyter.csh",
+#   "/global/cfs/cdirs/desi/users/adematti/activate_cosmodesi_jupyter.csh",
 #   "main",
 #   "{connection_file}"
 #   ],
@@ -19,5 +19,5 @@
 set version = $1
 set connection_file = $2
 
-source /global/common/software/desi/users/adematti/cosmodesi_environment.csh ${version}
+source /global/cfs/cdirs/desi/users/adematti/cosmodesi_environment.csh ${version}
 exec python -m ipykernel -f ${connection_file}

@@ -22,11 +22,90 @@ from pkg_resources import resource_filename
 from desiutil.git import last_tag
 from desiutil.log import get_logger, DEBUG, INFO
 from desiutil.modules import (init_modules, configure_module,
-                      process_module, default_module)
+                              process_module, default_module)
 from desiutil import __version__ as desiutilVersion
 
 
 known_products = {}
+
+
+def configure_module(product, version, product_root, working_dir=None, dev=False):
+    """Decide what needs to go in the Module file.
+
+    Parameters
+    ----------
+    product : :class:`str`
+        Name of the product.
+    version : :class:`str`
+        Version of the product.
+    product_root : :class:`str`
+        Directory that contains the installed code.
+    working_dir : :class:`str`, optional
+        The directory to examine.  If not set, the current working directory
+        will be used.
+    dev : :class:`bool`, optional
+        If ``True``, interpret the directory as a 'development' install,
+        *e.g.* a trunk or branch install.
+
+    Returns
+    -------
+    :class:`dict`
+        A dictionary containing the module configuration parameters.
+    """
+    from os import getcwd
+    from os.path import exists, isdir, join
+    from sys import version_info
+    try:
+        from ConfigParser import SafeConfigParser
+    except ImportError:
+        from configparser import ConfigParser as SafeConfigParser
+    if working_dir is None:
+        working_dir = getcwd()
+    module_keywords = {
+        'name': product,
+        'version': version,
+        'product_root': product_root,
+        'needs_bin': '# ',
+        'needs_python': '# ',
+        'needs_trunk_py': '# ',
+        'trunk_py_dir': '/py',
+        'needs_ld_lib': '# ',
+        'needs_idl': '# ',
+        'pyversion': "python{0:d}.{1:d}".format(*version_info)
+        }
+    if isdir(join(working_dir, 'bin')):
+        module_keywords['needs_bin'] = ''
+    if isdir(join(working_dir, 'lib')):
+        module_keywords['needs_ld_lib'] = ''
+    if isdir(join(working_dir, 'pro')):
+        module_keywords['needs_idl'] = ''
+    #if (exists(join(working_dir, 'setup.py')) and
+    #    (isdir(join(working_dir, product)) or
+    #     isdir(join(working_dir, product.lower())))
+    #    ):
+    if exists(join(working_dir, 'setup.py')):
+        if dev:
+            module_keywords['needs_trunk_py'] = ''
+            module_keywords['trunk_py_dir'] = ''
+        else:
+            module_keywords['needs_python'] = ''
+    if isdir(join(working_dir, 'py')):
+        if dev:
+            module_keywords['needs_trunk_py'] = ''
+        else:
+            module_keywords['needs_python'] = ''
+    if isdir(join(working_dir, 'python')):
+        if dev:
+            module_keywords['needs_trunk_py'] = ''
+            module_keywords['trunk_py_dir'] = '/python'
+        else:
+            module_keywords['needs_python'] = ''
+    if exists(join(working_dir, 'setup.cfg')):
+        conf = SafeConfigParser()
+        conf.read([join(working_dir, 'setup.cfg')])
+        if conf.has_section('entry_points'):
+            module_keywords['needs_bin'] = ''
+    return module_keywords
 
 
 def dependencies(modulefile):

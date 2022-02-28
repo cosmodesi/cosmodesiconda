@@ -8,7 +8,7 @@ if [[ $(basename ${SHELL}) == "bash" || $(basename ${SHELL}) == "sh" ]]; then
     else
         _desi_release=''
     fi
-    _desi_startup=/global/common/software/desi/users/adematti/${NERSC_HOST}/cosmodesiconda/startup/modulefiles
+    _desi_startup=/global/cfs/cdirs/desi/users/adematti/${NERSC_HOST}/cosmodesiconda/startup/modulefiles
     if [[ -n "${DESI_ROOT}" ]]; then
         # Do nothing, successfully.
         :
