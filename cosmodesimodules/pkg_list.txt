@@ -4,4 +4,4 @@ pyrecon @ https://github.com/cosmodesi/pyrecon @ branches/main,1.0.0
 pycorr @ https://github.com/cosmodesi/pycorr @ branches/main,1.0.0
 Corrfunc @ https://github.com/adematti/Corrfunc @ branches/desi,desi-1.0.0
 pypower @ https://github.com/cosmodesi/pypower @ branches/main,1.0.0
-abacusutils @ https://github.com/abacusorg/abacusutils @ branches/main
+abacusutils @ https://github.com/abacusorg/abacusutils @ branches/master

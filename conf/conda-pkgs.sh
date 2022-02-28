@@ -4,23 +4,25 @@ echo condadir is $CONDADIR
 
 conda install --copy --yes -c conda-forge \
     future \
-    numpy \
-    scipy \
+    'numpy>=1.16' \
+    'scipy>=1.5.0' \
     matplotlib \
     fitsio \
     h5py \
     cython \
-    pyfftw=0.12 \
+    'pyfftw=0.12' \
     sympy \
     numexpr \
     healpy \
-    astropy \
+    'astropy>=4.0.0' \
     scikit-learn \
     ipython \
     jupyter \
     ipywidgets \
     wurlitzer \
-    numba \
+    'numba>=0.50' \
+    'blosc>=1.9.2' \
+    'asdf>=2.8' \
 && mplrc="$CONDADIR/lib/python$PYVERSION/site-packages/matplotlib/mpl-data/matplotlibrc"; \
     cat ${mplrc} | sed -e "s#^backend.*#backend : TkAgg#" > ${mplrc}.tmp; \
     mv ${mplrc}.tmp ${mplrc} \
