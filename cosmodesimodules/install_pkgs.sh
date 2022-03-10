@@ -3,8 +3,8 @@
 # Bootstrap a set of DESI modules for their master branch
 
 if [ -z "$COSMODESICONDA" ] || [ -z "$COSMODESICONDA_VERSION" ]; then
-    echo "Load a desiconda module first to get \$COSMODESICONDA and $COSMODESICONDA_VERSION"
-    return
+    echo "Load a cosmodesiconda module first to get COSMODESICONDA and COSMODESICONDA_VERSION"
+    exit 0
 fi
 
 script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
@@ -26,7 +26,7 @@ while read line || [[ -n "$line" ]] ; do
     for version in ${versions[@]} ; do
         version=$(echo ${version} | xargs)
         echo $install_script $pkg $version
-        python $install_script -v -r $base $pkg $version -p $pkg:$url
+        python $install_script -v -r $base $pkg $version -p $pkg:$url $2
     done
 done < $1
 

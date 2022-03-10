@@ -2,6 +2,12 @@
 # The first line of this file tells Modules that this is a module file.
 # DO NOT ALTER IT!
 #
+# ABOUT THIS FILE
+#
+# This file is designed to be processed by Python.  Specifically, this file
+# will be read into a string, and the .format() method will be applied to it.
+# This file is not a valid module file on its own.
+#
 # METADATA AND DOCUMENTATION SECTION
 #
 # This function is part of the Modules help system.  You can modify
@@ -19,16 +25,24 @@ proc ModulesHelp { } {
 # prevents multiple versions from being loaded simultaneously.  Do not
 # change it.
 #
-set product cosmodesimodules
-set version current
+set product pypower
+set version main
 conflict $product
-set cosmodesiconda_version 20220227-1.0.0
 #
 # The line below is another part of the Modules help system.  You can
 # modify the part in quotes if you really need to, but most products should
 # leave this alone.
 #
 module-whatis "Sets up $product/$version in your environment."
+#
+# DEPENDENCIES SECTION
+#
+# If your product requires other software to function, that should be declared
+# here.  There are two types of dependencies: mandatory and optional.
+# A mandatory dependency is a module load command followed by a prereq
+# command.  An optional dependency is not followed by a prereq statement.
+#
+# NO DEPENDENCIES
 #
 # ENVIRONMENT SECTION
 #
@@ -37,42 +51,27 @@ module-whatis "Sets up $product/$version in your environment."
 # If you are not working at NERSC, but still want to use Modules, you
 # will need to set the DESI_PRODUCT_ROOT environment variable
 #
-set default_root /global/cfs/cdirs/desi/users/adematti/$env(NERSC_HOST)/cosmodesiconda
 if {[info exists env(DESI_PRODUCT_ROOT)]} {
     set code_root $env(DESI_PRODUCT_ROOT)/code
 } else {
-    set code_root $default_root/$cosmodesiconda_version/code
+    set code_root /global/cfs/cdirs/desi/users/adematti/cori/cosmodesiconda/20220308-1.0.0/code
 }
-set PRODUCT_DIR $default_root/startup/modulefiles/$product
+set PRODUCT_DIR $code_root/$product/$version
 #
 # This line creates an environment variable pointing to the install
 # directory of your product.
 #
 setenv [string toupper $product] $PRODUCT_DIR
-setenv [string toupper $product]_VERSION $version
 #
-# cosmodesiconda contains the external products that we need for most DESI work.
-# The value of $cosmodesiconda_version, defined above, may change depending
-# on system, e.g. cori v. datatran.
+# The lines below set various other environment variables.  They assume the
+# template product layout.  These will be set or commented as needed by the
+# desiInstall script.
 #
-if { [info exists env(NERSC_HOST)] } {
-    set cosmodesiconda_modules_root [string map {/code /modulefiles} $code_root]
-    module use $cosmodesiconda_modules_root
-    module load cosmodesiconda/$cosmodesiconda_version
-    prereq cosmodesiconda
-}
+# prepend-path PATH $PRODUCT_DIR/bin
+prepend-path PYTHONPATH $PRODUCT_DIR/lib/python3.9/site-packages
+# prepend-path PYTHONPATH $PRODUCT_DIR/py
+# prepend-path LD_LIBRARY_PATH $PRODUCT_DIR/lib
+# prepend-path IDL_PATH +$PRODUCT_DIR/pro
 #
-# DESI-specific modules
+# Add any non-standard Module code below this point.
 #
-
-# Master versions of most modules:
-module load cosmoprimo/1.0.0
-module load pyclass/1.0.0
-module load pyrecon/1.0.0
-module load pycorr/1.0.0
-module load Corrfunc/desi-1.0.0
-module load pypower/1.0.0
-module load abacusutils/master
-
-# may solve some OpenMP instabilities at NERSC
-setenv KMP_INIT_AT_FORK FALSE

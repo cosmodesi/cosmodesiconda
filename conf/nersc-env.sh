@@ -35,7 +35,3 @@ do
     fi
   fi
 done
-
-if [ $CONDAPRGENV == "gnu" ] ; then
-    module load openmpi
-fi

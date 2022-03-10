@@ -31,17 +31,17 @@ Quick start installation
 To install cosmodesiconda and load module::
 
     # set target 
-    prefix=/global/common/software/desi/users/$USER/cosmodesiconda
+    prefix=/global/common/software/desi/users/$USER
     mkdir -p $prefix 
 
-    local_copy=/global/cfs/cdirs/desi/users/$USER/cosmodesiconda
+    local_copy=/global/cfs/cdirs/desi/users/$USER
     git clone https://github.com/cosmodesi/cosmodesiconda $local_copy
     cd $local_copy
 
     unset PYTHONPATH
     export DCONDAVERSION=$(date '+%Y%m%d')-1.0.0
     PREFIX=$prefix ./install.sh |& tee install.log
-    module use $prefix/$DCONDAVERSION/modulefiles
+    module use $prefix/$NERSC_HOST/cosmodesiconda/$DCONDAVERSION/modulefiles
     module load cosmodesiconda
     
 Example
@@ -71,12 +71,12 @@ Also the output will be very long, so pipe it to a log file::
 
 If everything worked, then you can see your new desiconda install with::
 
-    $> module use $HOME/software/desi/cosmodesiconda/$dcondaversion/modulefiles
+    $> module use $HOME/software/desi/cosmodesiconda/$DCONDAVERSION/modulefiles
     $> module avail cosmodesiconda
 
 And you can load it with::
 
-    $> module load cosmodesiconda/$dcondaversion
+    $> module load cosmodesiconda/$DCONDAVERSION
 
 Configuration
 ~~~~~~~~~~~~~
@@ -94,21 +94,21 @@ Contents of installation
 The installation directory (assuming the installation script was called with 
 $DCONDAVERSION and $PREFIX) will contain directories and files::
 
-    $PREFIX/cosmodesiconda/$DCONDAVERSION/conda
-    $PREFIX/cosmodesiconda/$DCONDAVERSION/aux
-    $PREFIX/cosmodesiconda/$DCONDAVERSION/modulefiles/cosmodesiconda/$DCONDAVERSION
-    $PREFIX/cosmodesiconda/$DCONDAVERSION/modulefiles/cosmodesiconda/.version_$DCONDAVERSION
+    $PREFIX/$NERSC_HOST/cosmodesiconda/$DCONDAVERSION/conda
+    $PREFIX/$NERSC_HOST/cosmodesiconda/$DCONDAVERSION/aux
+    $PREFIX/$NERSC_HOST/cosmodesiconda/$DCONDAVERSION/modulefiles/cosmodesiconda/$DCONDAVERSION
+    $PREFIX/$NERSC_HOST/cosmodesiconda/$DCONDAVERSION/modulefiles/cosmodesiconda/.version_$DCONDAVERSION
 
 
 cosmodesimodules
 ----------------
 
-Then install a suite of pyrecon, pycorr, etc. packages::
+To install a suite of pyrecon, pycorr, etc. packages::
 
-    ./cosmodesimodules/install_pkgs.sh
+    ./cosmodesimodules/install.sh
  
 Contents of installation
 ~~~~~~~~~~~~~~~~~~~~~~~~
 Packages are installed in::
 
-    $PREFIX/cosmodesiconda/$DCONDAVERSION/code
+    $PREFIX/$NERSC_HOST/cosmodesiconda/$DCONDAVERSION/code

@@ -2,8 +2,8 @@
 echo Installing pip packages at $(date)
 
 # see https://docs.nersc.gov/development/languages/python/parallel-python/
-MPICC="mpicc" pip install --force --no-cache-dir --no-binary=mpi4py mpi4py
-MPICC="mpicc" pip install --no-cache-dir --no-binary=pmesh pmesh
+pip install --force --no-cache-dir --no-binary=mpi4py mpi4py
+MPICC="cc" pip install --no-cache-dir --no-binary=:all: git+https://github.com/adematti/pmesh
 pip install --no-cache-dir --no-deps camb emcee schwimmbad getdist dynesty dill
 
 if [ $? != 0 ]; then
@@ -11,4 +11,4 @@ if [ $? != 0 ]; then
     exit 1
 fi
 
-echo Current time $(date) Done installing conda packages
+echo Current time $(date) Done installing pip packages

@@ -631,20 +631,24 @@ class DesiInstall(object):
             message = "Root install directory is missing or not set."
             self.log.critical(message)
             raise DesiInstallException(message)
+        
+        self.code_dir = os.path.join(self.options.root, 'code')
+        if self.options.force:
+            self.code_dir = os.path.join(self.code_dir, '.tmp')
 
-        self.install_dir = os.path.join(self.options.root, 'code',
-                                        self.baseproduct, self.baseversion)
+        if not os.path.isdir(self.code_dir):
+            os.makedirs(self.code_dir)
+            self.permissions(self.code_dir)
+            
         if os.path.isdir(self.install_dir) and not self.options.test:
-            if self.options.force:
-                self.log.debug("shutil.rmtree('%s')", self.install_dir)
-                if not self.options.test:
-                    shutil.rmtree(self.install_dir)
-            else:
-                message = ("Install directory, {0}, already exists!".format(
-                           self.install_dir))
-                self.log.critical(message)
-                raise DesiInstallException(message)
-        return self.install_dir
+            message = ("Install directory, {0}, already exists!".format(
+                       self.install_dir))
+            self.log.critical(message)
+            raise DesiInstallException(message)
+    
+    @property
+    def install_dir(self):
+        return os.path.join(self.code_dir, self.baseproduct, self.baseversion)
 
     def start_modules(self):
         """Set up the modules infrastructure.
@@ -710,14 +714,8 @@ class DesiInstall(object):
         else:
             return os.path.join(self.default_nersc_dir(), 'modulefiles')
 
-    def install_module(self):
-        """Process the module file.
-
-        Returns
-        -------
-        :class:`str`
-            The text of the processed module file.
-        """
+    def configure_module(self):
+        """Set module file configuration."""
         dev = False
         # CHANGE
         #if 'py' in self.build_type:
@@ -731,9 +729,18 @@ class DesiInstall(object):
                        self.working_dir, dev)
         self.module_keywords = configure_module(self.baseproduct,
                                                 self.baseversion,
-                                                os.path.join(self.options.root, 'code'),
+                                                self.code_dir,
                                                 working_dir=self.working_dir,
                                                 dev=dev)
+
+    def install_module(self):
+        """Process the module file.
+
+        Returns
+        -------
+        :class:`str`
+            The text of the processed module file.
+        """
         if self.nersc is None:
             module_directory = os.path.join(self.options.root, 'modulefiles')
         else:
@@ -752,9 +759,10 @@ class DesiInstall(object):
                 mod = process_module(self.module_file, self.module_keywords,
                                      module_directory)
                 # Remove write permission to avoid accidental changes
-                outfile = os.path.join(module_directory,
-                                       self.module_keywords['name'],
-                                       self.module_keywords['version'])
+                #outfile = os.path.join(module_directory,
+                #                       self.module_keywords['name'],
+                #                       self.module_keywords['version'])
+                self.permissions(os.path.join(module_directory, self.module_keywords['name']))
             except OSError as ose:
                 self.log.critical(ose.strerror)
                 raise DesiInstallException(ose.strerror)
@@ -795,9 +803,8 @@ class DesiInstall(object):
         self.original_dir = os.getcwd()
         return self.original_dir
 
-    def install(self):
-        """Run setup.py, etc.
-        """
+    def install_package(self):
+        """Run setup.py, etc."""
         # CHANGE w.r.t. if (self.build_type == set(['plain']) or self.is_branch)
         if self.build_type == set(['plain']):
             #
@@ -962,7 +969,7 @@ class DesiInstall(object):
                 raise DesiInstallException(message)
         return True
 
-    def permissions(self):
+    def permissions(self, dirname=None):
         """Fix possible install permission errors.
 
         Returns
@@ -975,7 +982,9 @@ class DesiInstall(object):
             command.append('-v')
         if self.options.test:
             command.append('-t')
-        command.append(self.install_dir)
+        if dirname is None:
+            dirname = self.install_dir
+        command.append(dirname)
         self.log.debug(' '.join(command))
         proc = Popen(command, universal_newlines=True,
                      stdout=PIPE, stderr=PIPE)
@@ -990,7 +999,7 @@ class DesiInstall(object):
         #else:
         #    chmod_mode = 'a-w'
         chmod_mode = 'g-w,o-w'
-        command = ['chmod', '-R', chmod_mode, self.install_dir]
+        command = ['chmod', '-R', chmod_mode, dirname]
         self.log.debug(' '.join(command))
         proc = Popen(command, universal_newlines=True,
                      stdout=PIPE, stderr=PIPE)
@@ -1036,12 +1045,21 @@ class DesiInstall(object):
             self.set_install_dir()
             self.start_modules()
             self.module_dependencies()
-            self.install_module()
             self.prepare_environment()
-            self.install()
+            self.configure_module()
+            self.install_package()
+            self.install_module()
             self.get_extra()
             self.verify_bootstrap()
             self.permissions()
+            if self.options.force:
+                tmp_install_dir = self.install_dir
+                self.code_dir = os.path.join(self.options.root, 'code')
+                shutil.rmtree(self.install_dir)
+                shutil.copytree(tmp_install_dir, self.install_dir)
+                self.configure_module()
+                self.install_module()
+                shutil.rmtree(tmp_install_dir)
         except DesiInstallException:
             return 1
         self.cleanup()

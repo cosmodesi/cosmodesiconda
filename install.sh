@@ -34,8 +34,11 @@ export PATH=$CONDADIR/bin:$PATH
 source $CONFIGUREENV
 
 # Set installation directories
-COSMODESICONDA=$PREFIX/$DCONDAVERSION
+
+ROOTDIR=$PREFIX
+COSMODESICONDA=$ROOTDIR/$NERSC_HOST/cosmodesiconda/$DCONDAVERSION
 CONDADIR=$COSMODESICONDA/conda
+MPILOGINDIR=$COSMODESICONDA/mpilogin
 AUXDIR=$COSMODESICONDA/aux
 MODULEDIR=$COSMODESICONDA/modulefiles/cosmodesiconda
 
@@ -47,6 +50,7 @@ mkdir -p $AUXDIR/lib
 
 mkdir -p $CONDADIR/bin
 mkdir -p $CONDADIR/lib
+
 
 curl -SL $MINICONDA \
   -o miniconda.sh \
@@ -63,31 +67,42 @@ source $INSTALLPKGS
 echo Pre-compiling python modules at $(date)
 
 python$PYVERSION -m compileall -f "$CONDADIR/lib/python$PYVERSION/site-packages"
-
-# Set permissions
-echo Setting permissions at $(date)
-
-chgrp -R $GRP $CONDADIR
-chmod -R u=rwX,g=rX,o-rwx $CONDADIR
+python$PYVERSION -m compileall -f "$MPILOGINDIR/lib/python$PYVERSION/site-packages"
 
 # Install modulefile
 echo Installing the cosmodesiconda modulefile at $(date)
 
 mkdir -p $MODULEDIR
 
-cp $topdir/modulefile.gen cosmodesiconda.module
+MODULEFILE=$MODULEDIR/$DCONDAVERSION
+cp $topdir/cosmodesiconda.gen $MODULEFILE
 
-sed -i 's@_CONDADIR_@'"$CONDADIR"'@g' cosmodesiconda.module
-sed -i 's@_AUXDIR_@'"$AUXDIR"'@g' cosmodesiconda.module
-sed -i 's@_DCONDAVERSION_@'"$DCONDAVERSION"'@g' cosmodesiconda.module
-sed -i 's@_PYVERSION_@'"$PYVERSION"'@g' cosmodesiconda.module
-sed -i 's@_CONDAPRGENV_@'"$CONDAPRGENV"'@g' cosmodesiconda.module
+sed -i 's@_ROOTDIR_@'"$ROOTDIR"'@g' $MODULEFILE
+sed -i 's@_CONDADIR_@'"$CONDADIR"'@g' $MODULEFILE
+sed -i 's@_AUXDIR_@'"$AUXDIR"'@g' $MODULEFILE
+sed -i 's@_DCONDAVERSION_@'"$DCONDAVERSION"'@g' $MODULEFILE
+sed -i 's@_PYVERSION_@'"$PYVERSION"'@g' $MODULEFILE
+sed -i 's@_CONDAPRGENV_@'"$CONDAPRGENV"'@g' $MODULEFILE
 
-cp cosmodesiconda.module $MODULEDIR/$DCONDAVERSION
 cp cosmodesiconda.modversion $MODULEDIR/.version_$DCONDAVERSION
 
 chgrp -R $GRP $MODULEDIR
 chmod -R u=rwX,g=rX,o-rwx $MODULEDIR
+
+# Now patch for login node
+MODULEDIR=$COSMODESICONDA/modulefiles/mpilogin
+mkdir -p $MODULEDIR
+
+MODULEFILE=$MODULEDIR/$DCONDAVERSION
+cp $topdir/mpilogin.gen $MODULEFILE
+sed -i 's@_MPILOGINDIR_@'"$MPILOGINDIR"'@g' $MODULEFILE
+sed -i 's@_PYVERSION_@'"$PYVERSION"'@g' $MODULEFILE
+
+# Set permissions
+echo Setting permissions at $(date)
+
+chgrp -R $GRP $COSMODESICONDA
+chmod -R u=rwX,g=rX,o-rwx $COSMODESICONDA
 
 # All done
 echo Done at $(date)

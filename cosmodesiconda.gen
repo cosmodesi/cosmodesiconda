@@ -25,6 +25,7 @@ unsetenv PYTHONSTARTUP
 prepend-path PATH _CONDADIR_/bin
 prepend-path PATH _AUXDIR_/bin
 setenv PYTHONPATH _CONDADIR_/lib/python_PYVERSION_/site-packages
+setenv COSMODESIROOT _ROOTDIR_
 setenv COSMODESICONDA _CONDADIR_
 setenv COSMODESICONDA_VERSION _DCONDAVERSION_
 
@@ -57,7 +58,6 @@ if [ module-info mode load ] {
   module unload altd               # not necessary and suspected to cause random job hangs
   module unload craype-hugepages2M # https://docs.nersc.gov/development/languages/python/faq-troubleshooting
   module load gsl
-  module load openmpi
 }
 
 # libraries that may need to be pre loaded 

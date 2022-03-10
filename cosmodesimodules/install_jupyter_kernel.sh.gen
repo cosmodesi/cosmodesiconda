@@ -73,7 +73,7 @@ cat > ${kernelDir}/kernel.json <<EndOfKernel
 {
  "language": "python",
  "argv": [
-  "/global/cfs/cdirs/desi/users/adematti/activate_cosmodesi_jupyter.${suffix}",
+  "_ROOTDIR_/activate_cosmodesi_jupyter.${suffix}",
   "${release}",
   "{connection_file}"
  ],
