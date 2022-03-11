@@ -21,7 +21,6 @@ conda install --copy --yes -c conda-forge \
     ipywidgets \
     wurlitzer \
     'numba>=0.50' \
-    'blosc>=1.9.2' \
     'asdf>=2.8' \
 && mplrc="$CONDADIR/lib/python$PYVERSION/site-packages/matplotlib/mpl-data/matplotlibrc"; \
     cat ${mplrc} | sed -e "s#^backend.*#backend : TkAgg#" > ${mplrc}.tmp; \

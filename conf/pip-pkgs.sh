@@ -5,6 +5,7 @@ echo Installing pip packages at $(date)
 pip install --force --no-cache-dir --no-binary=mpi4py mpi4py
 MPICC="cc" pip install --no-cache-dir --no-binary=:all: git+https://github.com/adematti/pmesh
 pip install --no-cache-dir --no-deps camb emcee schwimmbad getdist dynesty dill
+pip install --no-cache-dir 'blosc>=1.9.2' # for some reason, ImportError when conda install
 
 if [ $? != 0 ]; then
     echo "ERROR installing pip packages; exiting"
