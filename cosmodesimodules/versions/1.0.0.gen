@@ -37,7 +37,7 @@ module-whatis "Sets up $product/$version in your environment."
 # If you are not working at NERSC, but still want to use Modules, you
 # will need to set the DESI_PRODUCT_ROOT environment variable
 #
-set default_root /global/common/software/desi/users/adematti/$env(NERSC_HOST)/cosmodesiconda
+set default_root _ROOTDIR_/cosmodesiconda
 if {[info exists env(DESI_PRODUCT_ROOT)]} {
     set code_root $env(DESI_PRODUCT_ROOT)/code
 } else {
@@ -55,11 +55,12 @@ setenv [string toupper $product]_VERSION $version
 # The value of $cosmodesiconda_version, defined above, may change depending
 # on system, e.g. cori v. datatran.
 #
+set cosmodesiconda_modules_root [string map {/code /modulefiles} $code_root]
+module use $cosmodesiconda_modules_root
+module load cosmodesiconda/$cosmodesiconda_version
+prereq cosmodesiconda
+
 if { [info exists env(NERSC_HOST)] } {
-    set cosmodesiconda_modules_root [string map {/code /modulefiles} $code_root]
-    module use $cosmodesiconda_modules_root
-    module load cosmodesiconda/$cosmodesiconda_version
-    prereq cosmodesiconda
     set hostname [uname nodename]
     if { [string match "nid*" $hostname] } {
         module unload mpilogin
@@ -72,13 +73,15 @@ if { [info exists env(NERSC_HOST)] } {
 #
 
 # Master versions of most modules:
-module load cosmoprimo/main
-module load pyclass/main
-module load pyrecon/main
-module load pycorr/main
+module load cosmoprimo/1.0.0
+module load pyclass/1.0.0
+module load pyrecon/1.0.0
+module load pycorr/1.0.0
 module load Corrfunc/desi
-module load pypower/main
+module load pypower/1.0.0
 module load abacusutils/master
 
 # may solve some OpenMP instabilities at NERSC
-setenv KMP_INIT_AT_FORK FALSE
+if { [info exists env(NERSC_HOST)] } {
+    setenv KMP_INIT_AT_FORK FALSE
+}

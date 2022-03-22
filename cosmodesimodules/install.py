@@ -258,6 +258,11 @@ class DesiInstall(object):
                             default=check_env['USER'],
                             metavar='USER',
                             help="Set svn username to USER.")
+        parser.add_argument('-g', '--group', action='store',
+                            dest='group',
+                            default='desi',
+                            metavar='GROUP',
+                            help="Set group permissions.")
         parser.add_argument('-v', '--verbose', action='store_true',
                             dest='verbose',
                             help='Print extra information.')
@@ -707,12 +712,9 @@ class DesiInstall(object):
         if hasattr(self, 'options'):
             if self.options.root is not None:
                 return os.path.join(self.options.root, 'modulefiles')
-        if not hasattr(self, 'nersc'):
+        if getattr(self, 'nersc', None):
             return None
-        if self.nersc is None:
-            return None
-        else:
-            return os.path.join(self.default_nersc_dir(), 'modulefiles')
+        return os.path.join(self.default_nersc_dir(), 'modulefiles')
 
     def configure_module(self):
         """Set module file configuration."""
@@ -978,6 +980,8 @@ class DesiInstall(object):
             Status code returned by fix_permissions.sh script.
         """
         command = ['fix_permissions.sh']
+        if self.options.group is not None:
+            command += ['-g', self.options.group]
         if self.options.verbose:
             command.append('-v')
         if self.options.test:
