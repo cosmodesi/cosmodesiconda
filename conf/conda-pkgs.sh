@@ -13,7 +13,6 @@ conda install --copy --yes -c conda-forge \
     'pyfftw=0.12' \
     sympy \
     numexpr \
-    healpy \
     'astropy>=4.0.0' \
     scikit-learn \
     ipython \

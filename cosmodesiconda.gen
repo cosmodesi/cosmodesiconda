@@ -9,11 +9,11 @@ set     version  _DCONDAVERSION_
 module-whatis "Loads software dependencies for DESI cosmological pipeline."
 
 proc ModulesHelp { } {
-  global version
-  puts stderr "\t\t DESI software dependencies - Version $version\n"
-  puts stderr "\t This loads a conda environment and other compiled"
-  puts stderr "\t software needed by the cosmological pipeline."
-  puts stderr ""
+    global version
+    puts stderr "\t\t DESI software dependencies - Version $version\n"
+    puts stderr "\t This loads a conda environment and other compiled"
+    puts stderr "\t software needed by the cosmological pipeline."
+    puts stderr ""
 }
 
 conflict cosmodesiconda
@@ -39,25 +39,27 @@ setenv PROJ_LIB _CONDADIR_/share/proj
 # but don't set automatically; leave it for srun --cpu-bind=cores opt-in
 # setenv SLURM_CPU_BIND cores
 
-# in case PrgEnv-_CONDAPRGENV_ is not loaded, swap it in
+# in case _CONDAPRGENV_ is not loaded, swap it in
 setenv CRAYPE_LINK_TYPE dynamic
 if [ module-info mode load ] {
-  if [ is-loaded PrgEnv-_CONDAPRGENV_ ] {
-  } else {
-    if [ is-loaded PrgEnv-cray ] {
-      module swap PrgEnv-cray  PrgEnv-_CONDAPRGENV_
+    if [ is-loaded _CONDAPRGENV_ ] {
+    } else {
+        foreach prgenv [list _PRGENVS_] {
+            if { [string trim $prgenv] != "" && [is-loaded $prgenv] } {
+                module swap $prgenv _CONDAPRGENV_
+            }
+        }
     }
-    if [ is-loaded PrgEnv-intel ] {
-      module swap PrgEnv-intel PrgEnv-_CONDAPRGENV_
+    foreach mod [list _UNLOADMODULES_] {
+        if { [string trim $mod] != "" } {
+            module unload $mod
+        }
     }
-    if [ is-loaded PrgEnv-gnu ] {
-      module swap PrgEnv-gnu   PrgEnv-_CONDAPRGENV_
+    foreach mod [list _LOADMODULES_] {
+        if { [string trim $mod] != "" } {
+            module load $mod
+        }
     }
-  }
-  module unload darshan            # not necessary and suspected to generate overhead
-  module unload altd               # not necessary and suspected to cause random job hangs
-  module unload craype-hugepages2M # https://docs.nersc.gov/development/languages/python/faq-troubleshooting
-  module load gsl
 }
 
 # libraries that may need to be pre loaded 
@@ -68,11 +70,11 @@ set preldlibs(3) _CONDADIR_/lib/libiomp5.so
 
 # load libraries
 foreach {n preldlib} [array get preldlibs] {
-  if [file exists $preldlib] {
-    if { [info exists ::env(LD_PRELOAD)] } {
-      setenv LD_PRELOAD $preldlib:$env(LD_PRELOAD)
-    } else {
-      setenv LD_PRELOAD $preldlib
+    if [file exists $preldlib] {
+        if { [info exists ::env(LD_PRELOAD)] } {
+            setenv LD_PRELOAD $preldlib:$env(LD_PRELOAD)
+        } else {
+            setenv LD_PRELOAD $preldlib
+        }
     }
-  }
 }

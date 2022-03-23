@@ -14,11 +14,8 @@ if [ -z $CONF ] ; then CONF=nersc;   fi
 if [ -z $PKGS ] ; then PKGS=default; fi
 
 # Script directory
-pushd $(dirname $0) > /dev/null
-topdir=$(pwd)
-popd > /dev/null
-
-scriptname=$(basename $0)
+topdir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+scriptname=$(basename "${BASH_SOURCE[0]}")
 fullscript="${topdir}/${scriptname}"
 
 # Convenience environment variables
@@ -33,10 +30,35 @@ export PATH=$CONDADIR/bin:$PATH
 # Initialize environment
 source $CONFIGUREENV
 
+for MOD in $(echo $UNLOADMODULES)
+do
+  module unload $MOD
+done
+
+for MOD in $(echo $LOADMODULES)
+do
+  module load $MOD
+done
+
+for PRGENV in $(echo $PRGENVS)
+do
+  mod=`module -t list 2>&1 | grep $PRGENV`
+  if [ "x$mod" != x ] ; then
+    if [ $PRGENV != $CONDAPRGENV ] ; then
+      echo "swapping $PRGENV for $CONDAPRGENV"
+      module swap $PRGENV $CONDAPRGENV
+    fi
+  fi
+done
+
 # Set installation directories
 
 ROOTDIR=$PREFIX
-COSMODESICONDA=$ROOTDIR/$NERSC_HOST/cosmodesiconda/$DCONDAVERSION
+ROOTDIRHOST=$ROOTDIR
+if [ ! -z $HOSTVARIABLE ] ; then
+    ROOTDIRHOST=$ROOTDIR/${!HOSTVARIABLE}
+fi
+COSMODESICONDA=$ROOTDIRHOST/cosmodesiconda/$DCONDAVERSION
 CONDADIR=$COSMODESICONDA/conda
 MPILOGINDIR=$COSMODESICONDA/mpilogin
 AUXDIR=$COSMODESICONDA/aux
@@ -50,7 +72,6 @@ mkdir -p $AUXDIR/lib
 
 mkdir -p $CONDADIR/bin
 mkdir -p $CONDADIR/lib
-
 
 curl -SL $MINICONDA \
   -o miniconda.sh \
@@ -83,27 +104,31 @@ sed -i 's@_AUXDIR_@'"$AUXDIR"'@g' $MODULEFILE
 sed -i 's@_DCONDAVERSION_@'"$DCONDAVERSION"'@g' $MODULEFILE
 sed -i 's@_PYVERSION_@'"$PYVERSION"'@g' $MODULEFILE
 sed -i 's@_CONDAPRGENV_@'"$CONDAPRGENV"'@g' $MODULEFILE
+sed -i 's@_PRGENVS_@'"$PRGENVS"'@g' $MODULEFILE
+sed -i 's@_UNLOADMODULES_@'"$UNLOADMODULES"'@g' $MODULEFILE
+sed -i 's@_LOADMODULES_@'"$LOADMODULES"'@g' $MODULEFILE
 
 cp cosmodesiconda.modversion $MODULEDIR/.version_$DCONDAVERSION
 
 chgrp -R $GRP $MODULEDIR
 chmod -R u=rwX,g=rX,o-rwx $MODULEDIR
 
-# Now patch for login node
-MODULEDIR=$COSMODESICONDA/modulefiles/mpilogin
-mkdir -p $MODULEDIR
+if [ ! -z ${MPILOGIN} ] ; then
+    # Now patch for login node
+    MODULEDIR=$COSMODESICONDA/modulefiles/mpilogin
+    mkdir -p $MODULEDIR
 
-MODULEFILE=$MODULEDIR/$DCONDAVERSION
-cp $topdir/mpilogin.gen $MODULEFILE
-sed -i 's@_MPILOGINDIR_@'"$MPILOGINDIR"'@g' $MODULEFILE
-sed -i 's@_PYVERSION_@'"$PYVERSION"'@g' $MODULEFILE
+    MODULEFILE=$MODULEDIR/$DCONDAVERSION
+    cp $topdir/mpilogin.gen $MODULEFILE
+    sed -i 's@_MPILOGINDIR_@'"$MPILOGINDIR"'@g' $MODULEFILE
+    sed -i 's@_PYVERSION_@'"$PYVERSION"'@g' $MODULEFILE
 
-# Set permissions
-echo Setting permissions at $(date)
+    # Set permissions
+    echo Setting permissions at $(date)
 
-chgrp -R $GRP $COSMODESICONDA
-chmod -R u=rwX,g=rX,o-rwx $COSMODESICONDA
-
+    chgrp -R $GRP $COSMODESICONDA
+    chmod -R u=rwX,g=rX,o-rwx $COSMODESICONDA
+fi
 # All done
 echo Done at $(date)
 duration=$SECONDS
