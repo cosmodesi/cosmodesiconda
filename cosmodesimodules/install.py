@@ -979,7 +979,7 @@ class DesiInstall(object):
         :class:`int`
             Status code returned by fix_permissions.sh script.
         """
-        command = ['fix_permissions.sh']
+        command = ['./fix_permissions.sh']
         if self.options.group is not None:
             command += ['-g', self.options.group]
         if self.options.verbose:
