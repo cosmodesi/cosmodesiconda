@@ -7,7 +7,7 @@ if ( `basename ${SHELL}` == "csh" || `basename ${SHELL}` == "tcsh" ) then
     else
         set _desi_release = ''
     endif
-    set _desi_startup = _ROOTDIR_/${NERSC_HOST}/cosmodesiconda/startup/modulefiles
+    set _desi_startup = _ROOTDIRHOST_/cosmodesiconda/startup/modulefiles
     module use ${_desi_startup}
     module load cosmodesimodules${_desi_release}
     unset _desi_startup

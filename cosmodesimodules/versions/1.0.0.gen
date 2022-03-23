@@ -37,7 +37,7 @@ module-whatis "Sets up $product/$version in your environment."
 # If you are not working at NERSC, but still want to use Modules, you
 # will need to set the DESI_PRODUCT_ROOT environment variable
 #
-set default_root _ROOTDIR_/cosmodesiconda
+set default_root _ROOTDIRHOST_/cosmodesiconda
 if {[info exists env(DESI_PRODUCT_ROOT)]} {
     set code_root $env(DESI_PRODUCT_ROOT)/code
 } else {
