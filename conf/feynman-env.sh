@@ -11,8 +11,10 @@ export LOADMODULES="cports/rhel-7.x86_64 gsl openmpi"
 export HOSTVARIABLE=
 
 export CC="gcc"
-export MPICC="mpicc"
 export FC="gfortran"
 export CFLAGS="-O3 -fPIC -pthread"
 export FCFLAGS="-O3 -fPIC -pthread -fexceptions"
 export NTMAKE=8
+
+export MPICC="mpicc"
+export MPICCPFFT="mpicc"

@@ -28,3 +28,4 @@ elif [ "${NERSC_HOST}" == "perlmutter" ] ; then
   export LOADMODULES=${LOADMODULES} cudatoolkit
   export MPICC="cc -target-accel=nvidia80 -shared"
 fi
+export MPICCPFFT="cc"
