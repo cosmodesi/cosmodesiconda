@@ -7,7 +7,7 @@ if [[ $(basename ${SHELL}) == "bash" || $(basename ${SHELL}) == "sh" ]]; then
     else
         _desi_release=''
     fi
-    _desi_startup=_ROOTDIR_/${NERSC_HOST}/cosmodesiconda/startup/modulefiles
+    _desi_startup=_ROOTDIRHOST_/cosmodesiconda/startup/modulefiles
     module use ${_desi_startup}
     module load cosmodesimodules${_desi_release}
     unset _desi_startup
