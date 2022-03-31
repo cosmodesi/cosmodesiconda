@@ -16,11 +16,13 @@ conda install --copy --yes -c conda-forge \
     'astropy>=4.0.0' \
     scikit-learn \
     ipython \
-    jupyter \
+    jupyterlab \
     ipywidgets \
     wurlitzer \
     'numba>=0.50' \
     'asdf>=2.8' \
+    pandas \
+    dask \
 && mplrc="$CONDADIR/lib/python$PYVERSION/site-packages/matplotlib/mpl-data/matplotlibrc"; \
     cat ${mplrc} | sed -e "s#^backend.*#backend : TkAgg#" > ${mplrc}.tmp; \
     mv ${mplrc}.tmp ${mplrc} \
