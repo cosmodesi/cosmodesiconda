@@ -88,7 +88,6 @@ source $INSTALLPKGS
 echo Pre-compiling python modules at $(date)
 
 python$PYVERSION -m compileall -f "$CONDADIR/lib/python$PYVERSION/site-packages"
-python$PYVERSION -m compileall -f "$MPILOGINDIR/lib/python$PYVERSION/site-packages"
 
 # Install modulefile
 echo Installing the cosmodesiconda modulefile at $(date)
@@ -115,6 +114,8 @@ chmod -R u=rwX,g=rX,o-rwx $MODULEDIR
 
 if [ ! -z ${MPILOGIN} ] ; then
     # Now patch for login node
+    python$PYVERSION -m compileall -f "$MPILOGINDIR/lib/python$PYVERSION/site-packages"
+
     MODULEDIR=$COSMODESICONDA/modulefiles/mpilogin
     mkdir -p $MODULEDIR
 

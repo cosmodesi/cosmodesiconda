@@ -11,10 +11,10 @@ doc/_build/
 **/dist
 **/eggs
 **/build
-**/_catalogs
 **/.ipynb_checkpoints
 **/bak
 **/_tests
 *.module
 *log
 *miniconda.*
+*update_pkg_list.txt
