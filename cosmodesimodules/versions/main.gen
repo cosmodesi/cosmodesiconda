@@ -22,7 +22,7 @@ proc ModulesHelp { } {
 set product cosmodesimodules
 set version current
 conflict $product
-set cosmodesiconda_version 20220331-1.0.0
+set cosmodesiconda_version 20220419-1.0.0
 #
 # The line below is another part of the Modules help system.  You can
 # modify the part in quotes if you really need to, but most products should
@@ -80,6 +80,9 @@ module load pycorr/main
 module load Corrfunc/desi
 module load pypower/main
 module load abacusutils/master
+module load mpytools/main
+module load mockfactory/main
+module load regressis/main
 
 # may solve some OpenMP instabilities at NERSC
 if { [info exists env(NERSC_HOST)] } {
