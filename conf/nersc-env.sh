@@ -10,7 +10,7 @@ export MPILOGIN=T
 # altd not necessary and suspected to cause random job hangs
 # craype-hugepages2M https://docs.nersc.gov/development/languages/python/faq-troubleshooting
 export UNLOADMODULES="darshan altd craype-hugepages2M"
-export LOADMODULES=gsl
+export LOADMODULES="gsl texlive/2019"
 export HOSTVARIABLE=NERSC_HOST
 
 export CC="gcc"

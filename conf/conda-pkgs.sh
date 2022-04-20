@@ -23,6 +23,7 @@ conda install --copy --yes -c conda-forge \
     'asdf>=2.8' \
     pandas \
     dask \
+    pytest \
 && mplrc="$CONDADIR/lib/python$PYVERSION/site-packages/matplotlib/mpl-data/matplotlibrc"; \
     cat ${mplrc} | sed -e "s#^backend.*#backend : TkAgg#" > ${mplrc}.tmp; \
     mv ${mplrc}.tmp ${mplrc} \
