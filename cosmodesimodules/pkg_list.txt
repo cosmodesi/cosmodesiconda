@@ -8,3 +8,4 @@ abacusutils @ https://github.com/abacusorg/abacusutils @ branches/master
 mpytools @ https://github.com/cosmodesi/mpytools @ branches/main,1.0.0
 mockfactory @ https://github.com/cosmodesi/mockfactory @ branches/main,1.0.0
 regressis @ https://github.com/echaussidon/regressis @ branches/main,1.0.0
+velocileptors @ https://github.com/sfschen/velocileptors @ branches/master
