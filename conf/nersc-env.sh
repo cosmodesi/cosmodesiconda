@@ -10,7 +10,7 @@ export MPILOGIN=T
 # altd not necessary and suspected to cause random job hangs
 # craype-hugepages2M https://docs.nersc.gov/development/languages/python/faq-troubleshooting
 export UNLOADMODULES="darshan altd craype-hugepages2M"
-export LOADMODULES="gsl texlive/2019"
+export LOADMODULES="gsl cray-hdf5"
 export HOSTVARIABLE=NERSC_HOST
 
 export CC="gcc"
@@ -22,10 +22,14 @@ export NTMAKE=8
 # needed for mpi4py
 if [ "${NERSC_HOST}" == "cori" ] ; then
   # see https://docs.nersc.gov/development/languages/python/parallel-python/
+  export LOADMODULES="${LOADMODULES} texlive/2019"
+  export ENVVARIABLES="HDF5_USE_FILE_LOCKING FALSE"
   export MPICC="cc -shared"
 elif [ "${NERSC_HOST}" == "perlmutter" ] ; then
   # see https://docs.nersc.gov/development/languages/python/using-python-perlmutter
-  export LOADMODULES=${LOADMODULES} cudatoolkit
+  export MPILOGIN=""
+  export LOADMODULES="e4s/21.11-tcl ${LOADMODULES} cudatoolkit"
+  export ENVVARIABLES="MPI4PY_RC_RECV_MPROBE FALSE"
   export MPICC="cc -target-accel=nvidia80 -shared"
 fi
 export MPICCPFFT="cc"

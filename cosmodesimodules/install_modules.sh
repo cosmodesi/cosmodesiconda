@@ -10,11 +10,9 @@ fi
 
 COSMODESIROOTHOST=$COSMODESIROOT
 COSMODESIROOTHOSTTCL=$COSMODESIROOT
-COSMODESIROOTHOSTBASH=$COSMODESIROOT
 if [ ! -z $HOSTVARIABLE ] ; then
     COSMODESIROOTHOST=$COSMODESIROOT/${!HOSTVARIABLE}
     COSMODESIROOTHOSTTCL=$COSMODESIROOT'/$env('$HOSTVARIABLE')'
-    COSMODESIROOTHOSTBASH=$COSMODESIROOT'/${'$HOSTVARIABLE'}'
 fi
 
 MODULEDIR=$COSMODESIROOTHOST/cosmodesiconda/startup/modulefiles/cosmodesimodules
@@ -27,14 +25,6 @@ for script in $script_dir/versions/* ; do
     filename="${filename%.*}"
     cp $script_dir/versions/$filename.gen $MODULEDIR/$filename
     sed -i 's@_ROOTDIRHOST_@'"$COSMODESIROOTHOSTTCL"'@g' $MODULEDIR/$filename
-done
-
-scripts="activate_cosmodesi_jupyter.sh activate_cosmodesi_jupyter.csh cosmodesi_environment.sh cosmodesi_environment.csh install_jupyter_kernel.sh"
-for script in $scripts ; do
-    cp $script_dir/$script.gen $MODULEDIR/$script
-    sed -i 's@_ROOTDIR_@'"$COSMODESIROOT"'@g' $MODULEDIR/$script
-    sed -i 's@_ROOTDIRHOST_@'"$COSMODESIROOTHOSTBASH"'@g' $MODULEDIR/$script
-    ln -sf $MODULEDIR/$script $COSMODESIROOT/$script
 done
 
 chgrp -R $GRP $MODULEDIR

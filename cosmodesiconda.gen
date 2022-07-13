@@ -39,6 +39,10 @@ setenv PROJ_LIB _CONDADIR_/share/proj
 # but don't set automatically; leave it for srun --cpu-bind=cores opt-in
 # setenv SLURM_CPU_BIND cores
 
+foreach {envname envvalue} [list _ENVVARIABLES_] {
+    setenv $envname $envvalue
+}
+
 # in case _CONDAPRGENV_ is not loaded, swap it in
 setenv CRAYPE_LINK_TYPE dynamic
 if [ module-info mode load ] {
@@ -59,6 +63,15 @@ if [ module-info mode load ] {
         if { [string trim $mod] != "" } {
             module load $mod
         }
+    }
+}
+
+if { [string trim "_MPILOGIN_"] != "" } {
+    set hostname [uname nodename]
+    if { [string match "nid*" $hostname] } {
+        module unload mpilogin
+    } else {
+        module load mpilogin/_DCONDAVERSION_
     }
 }
 
