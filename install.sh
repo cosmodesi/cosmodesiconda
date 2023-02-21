@@ -25,8 +25,6 @@ CONFDIR=$topdir/conf
 CONFIGUREENV=$CONFDIR/$CONF-env.sh
 INSTALLPKGS=$CONFDIR/$PKGS-pkgs.sh
 
-export PATH=$CONDADIR/bin:$PATH
-
 # Initialize environment
 source $CONFIGUREENV
 
@@ -73,9 +71,7 @@ mkdir -p $AUXDIR/lib
 mkdir -p $CONDADIR/bin
 mkdir -p $CONDADIR/lib
 
-curl -SL $MINICONDA \
-  -o miniconda.sh \
-  && /bin/bash miniconda.sh -b -f -p $CONDADIR
+curl -SL $MINICONDA -o miniconda.sh && /bin/bash miniconda.sh -b -f -p $CONDADIR
 
 source $CONDADIR/bin/activate
 export PYVERSION=$(python -c "import sys; print(str(sys.version_info[0])+'.'+str(sys.version_info[1]))")
@@ -108,6 +104,9 @@ sed -i 's@_UNLOADMODULES_@'"$UNLOADMODULES"'@g' $MODULEFILE
 sed -i 's@_LOADMODULES_@'"$LOADMODULES"'@g' $MODULEFILE
 sed -i 's@_ENVVARIABLES_@'"$ENVVARIABLES"'@g' $MODULEFILE
 sed -i 's@_MPILOGIN_@'"$MPILOGIN"'@g' $MODULEFILE
+sed -i 's@_PATH_@'"$EXPORTPATH"'@g' $MODULEFILE
+sed -i 's@_PYTHONPATH_@'"$EXPORTPYTHONPATH"'@g' $MODULEFILE
+sed -i 's@_LDLIBRARYPATH_@'"$EXPORTLDLIBRARYPATH"'@g' $MODULEFILE
 
 cp cosmodesiconda.modversion $MODULEDIR/.version_$DCONDAVERSION
 

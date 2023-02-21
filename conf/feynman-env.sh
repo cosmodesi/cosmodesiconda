@@ -6,6 +6,7 @@ export GRP=idphp
 export PRGENVS="gnu9 intel"
 export CONDAPRGENV=gnu9
 export MPILOGIN=
+export COSMOINSTALL=
 export UNLOADMODULES=anaconda
 export LOADMODULES="cports/rhel-7.x86_64 gsl openmpi"
 export HOSTVARIABLE=

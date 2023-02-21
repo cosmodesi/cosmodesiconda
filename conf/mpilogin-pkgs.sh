@@ -9,6 +9,7 @@ MPICC="mpicc" pip install mpi4py --no-binary=:all: --no-cache-dir --no-deps --di
 MPICC="mpicc" pip install pfft-python --no-binary=:all: --no-cache-dir --no-deps --disable-pip-version-check --ignore-installed --prefix=$prefix
 MPICC="mpicc" pip install mpsort --no-binary=:all: --no-cache-dir --no-deps --disable-pip-version-check --ignore-installed --prefix=$prefix
 MPICC="mpicc" pip install git+https://github.com/adematti/pmesh --no-binary=:all: --no-cache-dir --no-deps --disable-pip-version-check --ignore-installed
+CC="mpicc" CFLAGS="" pip install git+https://github.com/adematti/PolyChordLite@mpi4py --no-binary=:all: --no-cache-dir --no-deps --disable-pip-version-check --ignore-installed --prefix=$prefix
 module unload openmpi
 
 if [ $? != 0 ]; then

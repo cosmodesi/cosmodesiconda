@@ -6,6 +6,10 @@ export GRP=desi
 export PRGENVS="PrgEnv-gnu PrgEnv-intel PrgEnv-cray PrgEnv-nvidia"
 export CONDAPRGENV=PrgEnv-gnu
 export MPILOGIN=T
+export COSMODIR=/global/cfs/cdirs/desi/science/cpe/$NERSC_HOST/cosmodesiconda/$DCONDAVERSION
+mkdir -p $COSMODIR
+export COSMOINSTALL="classy-pkgs.sh planck-pkgs.sh nersc-cosmosis-pkgs.sh cobaya-pkgs.sh desilike-pkgs.sh"
+#export COSMOINSTALL="planck-pkgs.sh"
 # darshan not necessary and suspected to generate overhead
 # altd not necessary and suspected to cause random job hangs
 # craype-hugepages2M https://docs.nersc.gov/development/languages/python/faq-troubleshooting
@@ -21,15 +25,17 @@ export NTMAKE=8
 
 # needed for mpi4py
 if [ "${NERSC_HOST}" == "cori" ] ; then
-  # see https://docs.nersc.gov/development/languages/python/parallel-python/
+  # See https://docs.nersc.gov/development/languages/python/parallel-python/
   export LOADMODULES="${LOADMODULES} texlive/2019"
   export ENVVARIABLES="HDF5_USE_FILE_LOCKING FALSE"
   export MPICC="cc -shared"
 elif [ "${NERSC_HOST}" == "perlmutter" ] ; then
-  # see https://docs.nersc.gov/development/languages/python/using-python-perlmutter
+  # See https://docs.nersc.gov/development/languages/python/using-python-perlmutter
   export MPILOGIN=""
-  export LOADMODULES="e4s/21.11-tcl ${LOADMODULES} cudatoolkit"
-  export ENVVARIABLES="MPI4PY_RC_RECV_MPROBE FALSE"
-  export MPICC="cc -target-accel=nvidia80 -shared"
+  export LOADMODULES="e4s/21.11 ${LOADMODULES} cudatoolkit"
+  export ENVVARIABLES="MPI4PY_RC_RECV_MPROBE FALSE CXI_FORK_SAFE 1 CXI_FORK_SAFE_HP 1"
+  #export MPICC="cc -target-accel=nvidia80 -shared"
+  export MPICC="cc -shared"
 fi
 export MPICCPFFT="cc"
+

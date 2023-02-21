@@ -22,7 +22,7 @@ proc ModulesHelp { } {
 set product cosmodesimodules
 set version current
 conflict $product
-set cosmodesiconda_version 20220713-1.0.0
+set cosmodesiconda_version 20221205-1.0.0
 #
 # The line below is another part of the Modules help system.  You can
 # modify the part in quotes if you really need to, but most products should
@@ -64,7 +64,6 @@ prereq cosmodesiconda
 # DESI-specific modules
 #
 
-# Master versions of most modules:
 module load cosmoprimo/1.0.0
 module load pyclass/1.0.0
 module load pyrecon/1.0.0
@@ -76,6 +75,7 @@ module load mpytools/1.0.0
 module load mockfactory/1.0.0
 module load regressis/1.0.0
 module load velocileptors/master
+module load desilike/main
 
 # may solve some OpenMP instabilities at NERSC
 if { [info exists env(NERSC_HOST)] } {

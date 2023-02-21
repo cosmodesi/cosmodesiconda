@@ -9,3 +9,4 @@ mpytools @ https://github.com/cosmodesi/mpytools @ branches/main,1.0.0
 mockfactory @ https://github.com/cosmodesi/mockfactory @ branches/main,1.0.0
 regressis @ https://github.com/echaussidon/regressis @ branches/main,1.0.0
 velocileptors @ https://github.com/sfschen/velocileptors @ branches/master
+desilike @ https://github.com/cosmodesi/desilike @ branches/main

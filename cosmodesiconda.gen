@@ -75,19 +75,15 @@ if { [string trim "_MPILOGIN_"] != "" } {
     }
 }
 
-# libraries that may need to be pre loaded 
-set preldlibs(0) _CONDADIR_/lib/libmkl_core.so
-set preldlibs(1) _CONDADIR_/lib/libmkl_intel_thread.so
-set preldlibs(2) _CONDADIR_/lib/libmkl_intel_lp64.so
-set preldlibs(3) _CONDADIR_/lib/libiomp5.so
+# Set specific paths
+foreach lib [list _PATH_] {
+    prepend-path PATH $lib
+}
 
-# load libraries
-foreach {n preldlib} [array get preldlibs] {
-    if [file exists $preldlib] {
-        if { [info exists ::env(LD_PRELOAD)] } {
-            setenv LD_PRELOAD $preldlib:$env(LD_PRELOAD)
-        } else {
-            setenv LD_PRELOAD $preldlib
-        }
-    }
+foreach lib [list _PYTHONPATH_] {
+    prepend-path PYTHONPATH $lib
+}
+
+foreach lib [list _LDLIBRARYPATH_] {
+    prepend-path LD_LIBRARY_PATH $lib
 }
