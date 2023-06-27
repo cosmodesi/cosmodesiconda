@@ -11,7 +11,7 @@ script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 install_script=$script_dir/install.py
 
 # Install desiutil to get desiInstall script
-pip install git+https://github.com/desihub/desiutil.git
+pip install git+https://github.com/desihub/desiutil.git --no-deps
 
 base=$(realpath $COSMODESICONDA/..)
 while read line || [[ -n "$line" ]] ; do

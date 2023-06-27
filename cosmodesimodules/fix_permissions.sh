@@ -13,7 +13,7 @@ function usage() {
     echo "Set group-friendly permissions on a directory tree."
     echo ""
     echo "    -a = Include apache/www access (via ACL) when modifying permissions."
-    echo "    -g = Change group ownership to GROUP (default 'idphp')."
+    echo "    -g = Change group ownership to GROUP (default 'desi')."
     echo "    -h = Print this message and exit."
     echo "    -t = Test mode.  Do not make any changes.  Implies -v."
     echo "    -v = Verbose mode. Print lots of extra information."
@@ -34,7 +34,7 @@ function run() {
 #
 apacheACL=''
 apacheUID=48
-desiGID=idphp
+desiGID=desi
 test=/usr/bin/false
 verbose=/usr/bin/false
 while getopts ag:htv argname; do
@@ -80,10 +80,10 @@ if [ -z "${USER}" ]; then
     echo "The USER environment variable does not appear to be set!" >&2
     exit 1
 fi
-#if [ -z "${NERSC_HOST}" ]; then
-#    echo "Unable to determine NERSC environment.  Are you running this script at NERSC?" >&2
-#    exit 1
-#fi
+if [ -z "${NERSC_HOST}" ]; then
+    echo "Unable to determine NERSC environment.  Are you running this script at NERSC?" >&2
+    exit 1
+fi
 if [ $(realpath ${directory}) = $(realpath ${HOME}) ]; then
     echo "You are attempting to change the permissions of HOME=${HOME}, which is dangerous.  Aborting." >&2
     exit 1

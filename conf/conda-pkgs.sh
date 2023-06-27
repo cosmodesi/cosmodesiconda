@@ -7,6 +7,7 @@ conda install --copy --yes -c conda-forge \
     'numpy>=1.16' \
     'scipy>=1.5.0' \
     matplotlib \
+    torch \
     cfitsio \
     fitsio \
     h5py \
@@ -21,7 +22,7 @@ conda install --copy --yes -c conda-forge \
     ipywidgets \
     wurlitzer \
     'numba>=0.56' \
-    'asdf>=2.8' \
+    'asdf>=2.13' \
     pandas \
     dask \
     pytest \

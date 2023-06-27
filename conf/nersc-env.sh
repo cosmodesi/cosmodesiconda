@@ -32,7 +32,7 @@ if [ "${NERSC_HOST}" == "cori" ] ; then
 elif [ "${NERSC_HOST}" == "perlmutter" ] ; then
   # See https://docs.nersc.gov/development/languages/python/using-python-perlmutter
   export MPILOGIN=""
-  export LOADMODULES="e4s/21.11 ${LOADMODULES} cudatoolkit"
+  export LOADMODULES="e4s/22.05 ${LOADMODULES} cudatoolkit"
   export ENVVARIABLES="MPI4PY_RC_RECV_MPROBE FALSE CXI_FORK_SAFE 1 CXI_FORK_SAFE_HP 1"
   #export MPICC="cc -target-accel=nvidia80 -shared"
   export MPICC="cc -shared"
