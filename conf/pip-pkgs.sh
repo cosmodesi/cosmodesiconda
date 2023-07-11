@@ -7,7 +7,10 @@ MPICC=$MPICCPFFT pip install --no-cache-dir --no-binary=:all: git+https://github
 # install healpy with pip, as sometimes conda yields WARNING: version mismatch between CFITSIO header (as it reinstalls cfitsio)
 pip install --no-cache-dir --no-deps healpy camb emcee dynesty zeus-mcmc pocomc schwimmbad dill corner getdist iminuit Py-BOBYQA bigfile hankl chainconsumer
 CC="cc" CFLAGS="" pip install --no-binary=:all: --no-cache-dir git+https://github.com/adematti/PolyChordLite@mpi4py
+# for abacusutils
 pip install --no-cache-dir 'blosc>=1.9.2' # for some reason, ImportError when conda install
+pip install parallel_numpy_rng
+# for desilike
 pip install --no-cache-dir jax[cpu]
 
 

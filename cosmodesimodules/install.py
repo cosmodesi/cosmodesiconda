@@ -29,6 +29,11 @@ from desiutil import __version__ as desiutilVersion
 known_products = {}
 
 
+def pip_installable(working_dir='.'):
+    from os.path import exists, join
+    return any(exists(join(working_dir, basename)) for basename in ['setup.py', 'setup.cfg', 'pyproject.toml'])
+
+
 def configure_module(product, version, product_root, working_dir=None, dev=False):
     """Decide what needs to go in the Module file.
 
@@ -83,7 +88,7 @@ def configure_module(product, version, product_root, working_dir=None, dev=False
     #    (isdir(join(working_dir, product)) or
     #     isdir(join(working_dir, product.lower())))
     #    ):
-    if exists(join(working_dir, 'setup.py')):
+    if pip_installable(working_dir):
         if dev:
             module_keywords['needs_trunk_py'] = ''
             module_keywords['trunk_py_dir'] = ''
@@ -567,7 +572,7 @@ class DesiInstall(object):
             self.log.debug("Forcing build type: make")
             build_type.add('make')
         else:
-            if os.path.exists(os.path.join(self.working_dir, 'setup.py')):
+            if pip_installable(self.working_dir):
                 self.log.debug("Detected build type: py")
                 build_type.add('py')
             elif os.path.exists(os.path.join(self.working_dir, 'Makefile')):
@@ -806,7 +811,7 @@ class DesiInstall(object):
         return self.original_dir
 
     def install_package(self):
-        """Run setup.py, etc."""
+        """Run pip, etc."""
         # CHANGE w.r.t. if (self.build_type == set(['plain']) or self.is_branch)
         if self.build_type == set(['plain']):
             #

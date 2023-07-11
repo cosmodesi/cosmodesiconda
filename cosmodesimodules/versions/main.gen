@@ -71,12 +71,14 @@ module load pyrecon/main
 module load pycorr/main
 module load Corrfunc/desi
 module load pypower/main
-module load abacusutils/master
+module load abacusutils/main
 module load mpytools/main
 module load mockfactory/main
 module load regressis/main
 module load velocileptors/master
 module load desilike/main
+module load desitarget/main
+module load desiutil/main
 
 # may solve some OpenMP instabilities at NERSC
 if { [info exists env(NERSC_HOST)] } {
