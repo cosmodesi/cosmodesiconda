@@ -37,5 +37,6 @@ elif [ "${NERSC_HOST}" == "perlmutter" ] ; then
   #export MPICC="cc -target-accel=nvidia80 -shared"
   export MPICC="cc -shared"
 fi
+export ENVVARIABLES="${ENVVARIABLES} DESI_ROOT /global/cfs/cdirs/desi"
 export MPICCPFFT="cc"
 

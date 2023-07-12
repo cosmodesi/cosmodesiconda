@@ -11,6 +11,7 @@ CC="cc" CFLAGS="" pip install --no-binary=:all: --no-cache-dir git+https://githu
 pip install --no-cache-dir 'blosc>=1.9.2' # for some reason, ImportError when conda install
 pip install parallel_numpy_rng
 # for desilike
+pip install torch
 pip install --no-cache-dir jax[cpu]
 
 
