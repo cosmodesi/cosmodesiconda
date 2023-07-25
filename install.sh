@@ -32,6 +32,7 @@ for MOD in $(echo $UNLOADMODULES)
 do
   module unload $MOD
 done
+unset PYTHONPATH
 
 for MOD in $(echo $LOADMODULES)
 do
@@ -61,6 +62,15 @@ CONDADIR=$COSMODESICONDA/conda
 MPILOGINDIR=$COSMODESICONDA/mpilogin
 AUXDIR=$COSMODESICONDA/aux
 MODULEDIR=$COSMODESICONDA/modulefiles/cosmodesiconda
+if [ ! -z $COSMOPREFIX ] ; then
+    COSMODIR=$COSMOPREFIX
+else
+    COSMODIR=$PREFIX/cosmo
+fi
+if [ ! -z $HOSTVARIABLE ] ; then
+    COSMODIR=$COSMODIR/${!HOSTVARIABLE}
+fi
+COSMODIR=$COSMODIR/cosmodesiconda/$DCONDAVERSION
 
 # Install conda root environment
 echo Installing conda root environment at $(date)
@@ -70,6 +80,7 @@ mkdir -p $AUXDIR/lib
 
 mkdir -p $CONDADIR/bin
 mkdir -p $CONDADIR/lib
+mkdir -p $COSMODIR
 
 curl -SL $MINICONDA -o miniconda.sh && /bin/bash miniconda.sh -b -f -p $CONDADIR
 
@@ -130,6 +141,8 @@ if [ ! -z ${MPILOGIN} ] ; then
 
     chgrp -R $GRP $COSMODESICONDA
     chmod -R u=rwX,g=rX,o-rwx $COSMODESICONDA
+    chgrp -R $GRP $COSMODIR
+    chmod -R u=rwX,g=rX,o-rwx $COSMODIR
 fi
 # All done
 echo Done at $(date)

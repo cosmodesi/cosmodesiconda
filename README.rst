@@ -30,18 +30,12 @@ conda
 
 To install cosmodesiconda and load module::
 
-    # set target 
-    prefix=/global/common/software/desi/users/$USER
-    mkdir -p $prefix 
+    git clone https://github.com/cosmodesi/cosmodesiconda
+    cd cosmodesiconda
 
-    local_copy=/global/cfs/cdirs/desi/users/$USER
-    git clone https://github.com/cosmodesi/cosmodesiconda $local_copy
-    cd $local_copy
-
-    unset PYTHONPATH
     export CONF=nersc
     export DCONDAVERSION=$(date '+%Y%m%d')-1.0.0
-    PREFIX=$prefix ./install.sh |& tee install.log
+    PREFIX=/global/common/software/desi/users/$USER COSMOPREFIX=/global/cfs/cdirs/desi/science/cpe/$USER ./install.sh |& tee install.log
     module use $prefix/$NERSC_HOST/cosmodesiconda/$DCONDAVERSION/modulefiles
     module load cosmodesiconda
 

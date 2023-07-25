@@ -6,14 +6,12 @@ export GRP=desi
 export PRGENVS="PrgEnv-gnu PrgEnv-intel PrgEnv-cray PrgEnv-nvidia"
 export CONDAPRGENV=PrgEnv-gnu
 export MPILOGIN=T
-export COSMODIR=/global/cfs/cdirs/desi/science/cpe/$NERSC_HOST/cosmodesiconda/$DCONDAVERSION
-mkdir -p $COSMODIR
 export COSMOINSTALL="classy-pkgs.sh planck-pkgs.sh nersc-cosmosis-pkgs.sh cobaya-pkgs.sh desilike-pkgs.sh"
 #export COSMOINSTALL="planck-pkgs.sh"
 # darshan not necessary and suspected to generate overhead
 # altd not necessary and suspected to cause random job hangs
 # craype-hugepages2M https://docs.nersc.gov/development/languages/python/faq-troubleshooting
-export UNLOADMODULES="darshan altd craype-hugepages2M"
+export UNLOADMODULES=""
 export LOADMODULES="gsl cray-hdf5"
 export HOSTVARIABLE=NERSC_HOST
 
@@ -25,6 +23,7 @@ export NTMAKE=8
 
 # needed for mpi4py
 if [ "${NERSC_HOST}" == "cori" ] ; then
+  export UNLOADMODULES="darshan altd craype-hugepages2M"
   # See https://docs.nersc.gov/development/languages/python/parallel-python/
   export LOADMODULES="${LOADMODULES} texlive/2019"
   export ENVVARIABLES="HDF5_USE_FILE_LOCKING FALSE"

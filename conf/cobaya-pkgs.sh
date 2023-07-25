@@ -5,7 +5,6 @@ rm -rf $COBAYA_STD_DIR
 export COBAYA_PACKAGES_PATH=$COBAYA_STD_DIR
 
 mkdir $COBAYA_PACKAGES_PATH/code/planck
-ln -s $PLANCK_SRC_DIR/code/plc_3.0/plc-3.1 $COBAYA_PACKAGES_PATH/code/planck/clik-main  # installed by planck-pkgs.sh
 
 
 cobaya-install bicep_keck_2018 sn.pantheon bao.sdss_dr12_consensus_final bao.sixdf_2011_bao bao.sdss_dr7_mgs bao.sdss_dr16_baoplus_lrg bao.sdss_dr16_baoplus_elg bao.sdss_dr16_baoplus_qso bao.sdss_dr16_baoplus_lyauto bao.sdss_dr16_baoplus_lyxqso des_y1.joint planck_2018_highl_plik.TTTEEE planck_2018_lowl.TT planck_2018_lowl.EE -p $COBAYA_STD_DIR
@@ -23,3 +22,5 @@ cobaya-install spt3g_2020.TEEE
 #pip install --no-cache-dir git+https://github.com/ACTCollaboration/act_dr6_lenslike
 #wget https://lambda.gsfc.nasa.gov/data/suborbital/ACT/ACT_dr6/likelihood/data/ACT_dr6_likelihood_v1.1.tgz
 export ENVVARIABLES="$ENVVARIABLES COBAYA_STD_DIR $COBAYA_STD_DIR COBAYA_PACKAGES_PATH $COBAYA_PACKAGES_PATH COBAYA_USE_FILE_LOCKING F"
+rm -rf $COBAYA_PACKAGES_PATH/code/planck/clik-main
+ln -s $PLANCK_SRC_DIR/code/plc_3.0/plc-3.1 $COBAYA_PACKAGES_PATH/code/planck/clik-main  # installed by planck-pkgs.sh

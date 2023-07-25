@@ -5,10 +5,10 @@ def test_install():
     import numpy as np
     # cosmoprimo, pyclass, camb
     from cosmoprimo.fiducial import DESI
-    
+
     DESI(engine='class').get_fourier().pk_interpolator()
     DESI(engine='camb').get_fourier().pk_interpolator()
-    
+
     # pycorr, corrfunc, pypower, pyrecon
     def generate_catalogs(size=100, boxsize=(1000.,) * 3, boxcenter=(1000.,) * 3, n_individual_weights=1, n_bitwise_weights=0, seed=42):
         rng = np.random.RandomState(seed=seed)
@@ -28,7 +28,7 @@ def test_install():
                                 randoms_positions1=randoms[:3], data_weights1=data[3:], randoms_weights1=randoms[3:], nthreads=1)
     from pypower import CatalogFFTPower
     CatalogFFTPower(edges={'step': 0.01}, data_positions1=data[:3], randoms_positions1=randoms[:3], data_weights1=data[3:], randoms_weights1=randoms[3:], nmesh=64)
-    
+
     from pyrecon import MultiGridReconstruction
     data_positions, data_weights = np.column_stack(data[:3]), data[3]
     randoms_positions, randoms_weights = np.column_stack(randoms[:3]), randoms[3]
@@ -38,13 +38,13 @@ def test_install():
     recon.set_density_contrast()
     recon.run()
     data_positions_rec = recon.read_shifted_positions(data_positions)
-    
+
     # abacusutils
     import abacusnbody.data.compaso_halo_catalog
-    
+
     # mockfactory
     from mockfactory import Catalog
-    
+
     # desilike
     from desilike.theories.galaxy_clustering import EFTLikeKaiserTracerPowerSpectrumMultipoles, ShapeFitPowerSpectrumTemplate
     from desilike.observables.galaxy_clustering import TracerPowerSpectrumMultipolesObservable, ObservablesCovarianceMatrix, BoxFootprint
@@ -65,12 +65,12 @@ def test_install():
     for param in likelihood.all_params.select(basename=['df', 'dm']): param.update(fixed=True)
     profiler = MinuitProfiler(likelihood, rescale=True)
     profiles = profiler.maximize(niterations=1)
-    
+
     # cosmosis, montepython
     assert os.getenv('COSMOSIS_STD_DIR')
     assert os.getenv('CLASS_STD_DIR')
     assert os.getenv('PLANCK_SRC_DIR')
-    
+
     # cobaya
     from cosmoprimo.fiducial import DESI
     cosmo = DESI()
@@ -95,14 +95,16 @@ def test_install():
     from cobaya.sampler import get_sampler
     model = get_model(info)
     get_sampler(info_sampler, model=model).run()
-    
+
     info['likelihood'] = {'planck_2018_highl_plik.TTTEEE': None}
     model = get_model(info)
     get_sampler(info_sampler, model=model).run()
-    
+
     info['likelihood'] = {'wmaplike.WMAPLike': None, 'sn.pantheon': None, 'pyactlike.ACTPol_lite_DR4': None}
     model = get_model(info)
     get_sampler(info_sampler, model=model).run()
+
+    from pypolychord import settings
 
 
 if __name__ == '__main__':
