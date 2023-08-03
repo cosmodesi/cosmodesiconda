@@ -76,6 +76,8 @@ module load mpytools/main
 module load mockfactory/main
 module load regressis/main
 module load velocileptors/master
+module load pybird/master
+module load folps/main
 module load desilike/main
 module load desitarget/main
 module load desiutil/main
