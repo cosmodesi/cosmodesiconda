@@ -9,7 +9,7 @@ mpytools @ https://github.com/cosmodesi/mpytools @ branches/main
 mockfactory @ https://github.com/cosmodesi/mockfactory @ branches/main
 regressis @ https://github.com/echaussidon/regressis @ branches/main
 velocileptors @ https://github.com/sfschen/velocileptors @ branches/master
-pybird @ https://github.com/adematti/pybird @ branches/master
+pybird @ https://github.com/pierrexyz/pybird @ branches/master
 folps @ https://github.com/henoriega/FOLPS-nu @ branches/main
 desilike @ https://github.com/cosmodesi/desilike @ branches/main
 desiutil @ https://github.com/desihub/desiutil @ branches/main
