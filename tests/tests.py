@@ -27,6 +27,7 @@ def test_install():
     TwoPointCorrelationFunction(mode='smu', edges=(np.linspace(0., 50., 51), np.linspace(-1., 1., 51)), data_positions1=data[:3],
                                 randoms_positions1=randoms[:3], data_weights1=data[3:], randoms_weights1=randoms[3:], nthreads=1)
     from pypower import CatalogFFTPower
+    data, randoms = generate_catalogs(size=10000)
     CatalogFFTPower(edges={'step': 0.01}, data_positions1=data[:3], randoms_positions1=randoms[:3], data_weights1=data[3:], randoms_weights1=randoms[3:], nmesh=64)
 
     from pyrecon import MultiGridReconstruction
