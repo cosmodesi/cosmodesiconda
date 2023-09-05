@@ -89,7 +89,7 @@ def test_install():
 
     info = {'params': params,
             'likelihood': {'planck_2018_highl_plik.TTTEEE': None, 'sn.pantheon': None, 'pyactlike.ACTPol_lite_DR4': None},
-            'theory': {'classy': {'extra_args': {'N_ncdm': cosmo['N_ncdm'], 'N_ur': cosmo['N_ur']}}}}
+            'theory': {'classy': {'extra_args': {'m_ncdm': cosmo['m_ncdm'], 'N_ncdm': cosmo['N_ncdm'], 'N_ur': cosmo['N_ur']}}}}
 
     info_sampler = {'evaluate': {}}
     from cobaya.model import get_model

@@ -2,12 +2,13 @@ cosmoprimo @ https://github.com/cosmodesi/cosmoprimo @ branches/main
 pyclass @ https://github.com/adematti/pyclass @ branches/main
 pyrecon @ https://github.com/cosmodesi/pyrecon @ branches/main,branches/mpi
 pycorr @ https://github.com/cosmodesi/pycorr @ branches/main
-Corrfunc @ https://github.com/adematti/Corrfunc @ branches/desi
+Corrfunc @ https://github.com/cosmodesi/Corrfunc @ branches/desi
 pypower @ https://github.com/cosmodesi/pypower @ branches/main
 abacusutils @ https://github.com/abacusorg/abacusutils @ branches/main,branches/master
 mpytools @ https://github.com/cosmodesi/mpytools @ branches/main
 mockfactory @ https://github.com/cosmodesi/mockfactory @ branches/main
 regressis @ https://github.com/echaussidon/regressis @ branches/main
+sysnet @ https://github.com/mehdirezaie/sysnetdev @ branches/master
 velocileptors @ https://github.com/sfschen/velocileptors @ branches/master
 pybird @ https://github.com/pierrexyz/pybird @ branches/master
 folps @ https://github.com/henoriega/FOLPS-nu @ branches/main

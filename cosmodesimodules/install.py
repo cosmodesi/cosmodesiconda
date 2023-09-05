@@ -60,10 +60,6 @@ def configure_module(product, version, product_root, working_dir=None, dev=False
     from os import getcwd
     from os.path import exists, isdir, join
     from sys import version_info
-    try:
-        from ConfigParser import SafeConfigParser
-    except ImportError:
-        from configparser import ConfigParser as SafeConfigParser
     if working_dir is None:
         working_dir = getcwd()
     module_keywords = {
@@ -105,11 +101,6 @@ def configure_module(product, version, product_root, working_dir=None, dev=False
             module_keywords['trunk_py_dir'] = '/python'
         else:
             module_keywords['needs_python'] = ''
-    if exists(join(working_dir, 'setup.cfg')):
-        conf = SafeConfigParser()
-        conf.read([join(working_dir, 'setup.cfg')])
-        if conf.has_section('entry_points'):
-            module_keywords['needs_bin'] = ''
     return module_keywords
 
 
@@ -752,6 +743,8 @@ class DesiInstall(object):
             module_directory = os.path.join(self.options.root, 'modulefiles')
         else:
             module_directory = self.nersc_module_dir
+        if os.path.isdir(os.path.join(self.install_dir, 'bin')):
+            self.module_keywords['needs_bin'] = ''
         #
         # process_module() will handle the creation of the module directory.
         #
@@ -840,7 +833,7 @@ class DesiInstall(object):
                                        self.module_keywords['pyversion'],
                                        'site-packages')
                 if self.options.test:
-                    self.log.debug("Test Mode.  Skipping creation of %s.",
+                    self.log.debug("Test Mode. Skipping creation of %s.",
                                    lib_dir)
                 else:
                     self.log.debug("os.makedirs('%s')", lib_dir)
@@ -881,7 +874,7 @@ class DesiInstall(object):
                         # raise an error unless the return code was non-zero.
                         #
                         if proc.returncode == 0:
-                            message = ("Pip emitted messages on STDERR; these can probably be ignored:\n" +
+                            message = ("pip emitted messages on STDERR; these can probably be ignored:\n" +
                                        err)
                             self.log.warning(message)
                         else:
