@@ -16,7 +16,7 @@ rm eval_wmap.yaml
 rm -rf chains
 pip install --no-cache-dir git+https://github.com/ACTCollaboration/pyactlike
 pip install git+https://github.com/xgarrido/spt_likelihoods.git
-cobaya-install spt3g_2020.TEEE
+cobaya-install spt3g_2020.TEEE spt3g_2022.TEEE
 #wget https://raw.githubusercontent.com/xgarrido/spt_likelihoods/master/examples/spt3g_example.yaml .
 #cobaya-run spt3g_example.yaml
 #pip install --no-cache-dir git+https://github.com/ACTCollaboration/act_dr6_lenslike

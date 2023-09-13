@@ -1,24 +1,28 @@
-def test_install():
+import os
+import numpy as np
 
-    import os
 
-    import numpy as np
+def generate_catalogs(size=100, boxsize=(1000.,) * 3, boxcenter=(1000.,) * 3, n_individual_weights=1, n_bitwise_weights=0, seed=42):
+    rng = np.random.RandomState(seed=seed)
+    toret = []
+    for i in range(2):
+        positions = [c + rng.uniform(-0.5, 0.5, size) * s for c, s in zip(boxcenter, boxsize)]
+        weights = [rng.randint(0, 0xffffffff, size, dtype='i8') for i in range(n_bitwise_weights)]
+        weights += [rng.uniform(0.5, 1., size) for i in range(n_individual_weights)]
+        toret.append(positions + weights)
+    return toret
+
+
+def test_cosmoprimo():
+
     # cosmoprimo, pyclass, camb
     from cosmoprimo.fiducial import DESI
 
     DESI(engine='class').get_fourier().pk_interpolator()
     DESI(engine='camb').get_fourier().pk_interpolator()
 
-    # pycorr, corrfunc, pypower, pyrecon
-    def generate_catalogs(size=100, boxsize=(1000.,) * 3, boxcenter=(1000.,) * 3, n_individual_weights=1, n_bitwise_weights=0, seed=42):
-        rng = np.random.RandomState(seed=seed)
-        toret = []
-        for i in range(2):
-            positions = [c + rng.uniform(-0.5, 0.5, size) * s for c, s in zip(boxcenter, boxsize)]
-            weights = [rng.randint(0, 0xffffffff, size, dtype='i8') for i in range(n_bitwise_weights)]
-            weights += [rng.uniform(0.5, 1., size) for i in range(n_individual_weights)]
-            toret.append(positions + weights)
-        return toret
+
+def test_pycorr():
 
     data, randoms = generate_catalogs()
 
@@ -26,10 +30,18 @@ def test_install():
     setup_logging()
     TwoPointCorrelationFunction(mode='smu', edges=(np.linspace(0., 50., 51), np.linspace(-1., 1., 51)), data_positions1=data[:3],
                                 randoms_positions1=randoms[:3], data_weights1=data[3:], randoms_weights1=randoms[3:], nthreads=1)
+
+
+def test_pypower():
+
     from pypower import CatalogFFTPower
     data, randoms = generate_catalogs(size=10000)
     CatalogFFTPower(edges={'step': 0.01}, data_positions1=data[:3], randoms_positions1=randoms[:3], data_weights1=data[3:], randoms_weights1=randoms[3:], nmesh=64)
 
+
+def test_pyrecon():
+
+    data, randoms = generate_catalogs(size=10000)
     from pyrecon import MultiGridReconstruction
     data_positions, data_weights = np.column_stack(data[:3]), data[3]
     randoms_positions, randoms_weights = np.column_stack(randoms[:3]), randoms[3]
@@ -40,12 +52,18 @@ def test_install():
     recon.run()
     data_positions_rec = recon.read_shifted_positions(data_positions)
 
+
+def test_abacusutils():
     # abacusutils
     import abacusnbody.data.compaso_halo_catalog
 
+
+def test_mockfactory():
     # mockfactory
     from mockfactory import Catalog
 
+
+def test_desilike():
     # desilike
     from desilike.theories.galaxy_clustering import EFTLikeKaiserTracerPowerSpectrumMultipoles, ShapeFitPowerSpectrumTemplate
     from desilike.observables.galaxy_clustering import TracerPowerSpectrumMultipolesObservable, ObservablesCovarianceMatrix, BoxFootprint
@@ -67,6 +85,8 @@ def test_install():
     profiler = MinuitProfiler(likelihood, rescale=True)
     profiles = profiler.maximize(niterations=1)
 
+
+def test_inference():
     # cosmosis, montepython
     assert os.getenv('COSMOSIS_STD_DIR')
     assert os.getenv('CLASS_STD_DIR')
@@ -84,12 +104,11 @@ def test_install():
               'H0': cosmo['H0'],
               'A_s': cosmo['A_s'],
               'n_s': cosmo['n_s'],
-              'tau_reio': cosmo['tau_reio'],
-              'yp2': {'prior': {'min': 0.5, 'max': 1.5}}}
+              'tau_reio': cosmo['tau_reio']}
 
     info = {'params': params,
-            'likelihood': {'planck_2018_highl_plik.TTTEEE': None, 'sn.pantheon': None, 'pyactlike.ACTPol_lite_DR4': None},
-            'theory': {'classy': {'extra_args': {'m_ncdm': cosmo['m_ncdm'], 'N_ncdm': cosmo['N_ncdm'], 'N_ur': cosmo['N_ur']}}}}
+            'likelihood': {'planck_2018_highl_plik.TTTEEE': None, 'sn.pantheon': None},
+            'theory': {'classy': {'extra_args': {'m_ncdm': cosmo['m_ncdm'][0], 'N_ncdm': cosmo['N_ncdm'], 'N_ur': cosmo['N_ur']}}}}
 
     info_sampler = {'evaluate': {}}
     from cobaya.model import get_model
@@ -97,11 +116,13 @@ def test_install():
     model = get_model(info)
     get_sampler(info_sampler, model=model).run()
 
-    info['likelihood'] = {'planck_2018_highl_plik.TTTEEE': None}
+    info['params']['yp2'] = {'prior': {'min': 0.5, 'max': 1.5}}  # for ACT
+    info['likelihood'] = {'wmaplike.WMAPLike': None, 'pyactlike.ACTPol_lite_DR4': None, 'spt3g_2020.TEEE': None}
     model = get_model(info)
     get_sampler(info_sampler, model=model).run()
 
-    info['likelihood'] = {'wmaplike.WMAPLike': None, 'sn.pantheon': None, 'pyactlike.ACTPol_lite_DR4': None}
+    info['params']['yp2'] = {'prior': {'min': 0.5, 'max': 1.5}}  # for ACT
+    info['likelihood'] = {'wmaplike.WMAPLike': None, 'pyactlike.ACTPol_lite_DR4': None, 'spt3g_2022.TTTEEE': None}
     model = get_model(info)
     get_sampler(info_sampler, model=model).run()
 
@@ -110,4 +131,11 @@ def test_install():
 
 if __name__ == '__main__':
 
-    test_install()
+    test_cosmoprimo()
+    test_pycorr()
+    test_pypower()
+    test_pyrecon()
+    test_abacusutils()
+    test_mockfactory()
+    test_desilike()
+    test_inference()

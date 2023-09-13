@@ -79,6 +79,7 @@ module load velocileptors/master
 module load pybird/master
 module load folps/main
 module load desilike/main
+module load desipipe/main
 module load desitarget/main
 module load desiutil/main
 

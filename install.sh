@@ -139,10 +139,8 @@ if [ ! -z ${MPILOGIN} ] ; then
     # Set permissions
     echo Setting permissions at $(date)
 
-    chgrp -R $GRP $COSMODESICONDA
-    chmod -R u=rwX,g=rX,o-rwx $COSMODESICONDA
-    chgrp -R $GRP $COSMODIR
-    chmod -R u=rwX,g=rX,o-rwx $COSMODIR
+    chgrp -R $GRP $COSMODESICONDA $COSMODIR
+    chmod -R u=rwX,g=rX,o-rwx $COSMODESICONDA $COSMODIR
 fi
 # All done
 echo Done at $(date)
