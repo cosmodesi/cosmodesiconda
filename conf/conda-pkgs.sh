@@ -19,7 +19,6 @@ conda install --copy --yes -c conda-forge \
     scikit-learn \
     ipython \
     jupyterlab \
-    ipywidgets='7.6.5' \
     wurlitzer \
     'numba>=0.56' \
     'asdf>=2.13' \
