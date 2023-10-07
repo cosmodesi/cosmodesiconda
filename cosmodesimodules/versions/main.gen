@@ -82,6 +82,7 @@ module load desilike/main
 module load desipipe/main
 module load desitarget/main
 module load desiutil/main
+module load desimodel/main
 
 # may solve some OpenMP instabilities at NERSC
 if { [info exists env(NERSC_HOST)] } {

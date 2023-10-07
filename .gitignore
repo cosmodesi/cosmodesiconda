@@ -17,4 +17,5 @@ doc/_build/
 *.module
 *log
 *miniconda.*
+*.tmp
 *update_pkg_list.txt

@@ -14,7 +14,8 @@ $PYTHON -m pip install --no-cache-dir 'blosc>=1.9.2' # for some reason, ImportEr
 $PYTHON -m pip install parallel_numpy_rng
 # for desilike
 $PYTHON -m pip install torch
-$PYTHON -m pip install --no-cache-dir jax[cpu]
+$PYTHON -m pip install jax==0.4.2
+$PYTHON -m pip install --user jaxlib==0.4.2+cuda11.cudnn82 -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 $PYTHON -m pip install SciencePlots
 
 if [ $? != 0 ]; then

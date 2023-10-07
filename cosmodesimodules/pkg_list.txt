@@ -15,4 +15,5 @@ folps @ https://github.com/henoriega/FOLPS-nu @ branches/main
 desilike @ https://github.com/cosmodesi/desilike @ branches/main
 desiutil @ https://github.com/desihub/desiutil @ branches/main
 desitarget @ https://github.com/desihub/desitarget @ branches/main
+desimodel @ https://github.com/desihub/desimodel @ branches/main
 desipipe @ https://github.com/adematti/desipipe @ branches/main
