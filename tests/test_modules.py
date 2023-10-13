@@ -117,12 +117,12 @@ def test_inference():
     get_sampler(info_sampler, model=model).run()
 
     info['params']['yp2'] = {'prior': {'min': 0.5, 'max': 1.5}}  # for ACT
-    info['likelihood'] = {'wmaplike.WMAPLike': None, 'pyactlike.ACTPol_lite_DR4': None, 'spt3g_2020.TEEE': None}
+    info['likelihood'] = {'wmaplike.WMAPLike': None, 'spt3g_2020.TEEE': None}  # , 'pyactlike.ACTPol_lite_DR4': None theory deprecated
     model = get_model(info)
     get_sampler(info_sampler, model=model).run()
 
     info['params']['yp2'] = {'prior': {'min': 0.5, 'max': 1.5}}  # for ACT
-    info['likelihood'] = {'wmaplike.WMAPLike': None, 'pyactlike.ACTPol_lite_DR4': None, 'spt3g_2022.TTTEEE': None}
+    info['likelihood'] = {'wmaplike.WMAPLike': None, 'spt3g_2022.TTTEEE': None}
     model = get_model(info)
     get_sampler(info_sampler, model=model).run()
 

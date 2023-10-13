@@ -1,6 +1,6 @@
 # Cobaya stuffs
 
-PYTHON=(which python)
+PYTHON=$(which python)
 $PYTHON -m pip install cobaya
 export COBAYA_STD_DIR=$COSMODIR/cobaya
 rm -rf $COBAYA_STD_DIR

@@ -1,11 +1,3 @@
-# Load other modules
-module load gsl/2.7
-if [ "${NERSC_HOST}" == "cori" ] ; then
-    GSLDIR=$GSL_DIR
-elif [ "${NERSC_HOST}" == "perlmutter" ] ; then
-    GSLDIR=$GSL_ROOT
-    module load cpu
-fi
 # Compilers
 export COSMOSIS_ALT_COMPILERS=1
 export CC=gcc
@@ -27,7 +19,19 @@ export COSMOSIS_OMP=1
 # Because wrong order when specifying GSL_LIB path in cosmosis-standard-library/structure/EuclidEmumator2/setup.py 
 export LIBRARY_PATH=$LIBRARY_PATH:${GSL_LIB}
 
-if [ "${NERSC_HOST}" == "perlmutter" ] ; then
-    # Tries to prevent cosmosis from launching any subprocesses, since that is not allowed on Perlmutter.
+# Setup that needs the conda path
+if [[ "${NERSC_HOST}" == "perlmutter" ]]
+then
+    # Tries to prevent cosmosis from launching any subprocesses, since that is not allowed
+    # on Perlmutter.
     export COSMOSIS_NO_SUBPROCESS=1
+
+    # Fixes missing support in the Perlmutter libfabric:
+    # https://docs.nersc.gov/development/languages/python/using-python-perlmutter/#missing-support-for-matched-proberecv
+    export MPI4PY_RC_RECV_MPROBE=0
+    module load evp-patch
+
+else
+    echo Unknown NERSC host
+    return
 fi

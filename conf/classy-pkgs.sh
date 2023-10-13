@@ -1,9 +1,9 @@
 # class_public, for cobaya
-# Unfortunately "make" does not build a standalone Python package: e.g. BBN files are still reference in CLASS' main folder.
+# Unfortunately "make" does not build a standalone Python package: e.g. BBN files are still referenced in CLASS' main folder.
 # So copy the full CLASS folder to the environment
 mkdir -p $COSMODIR/common
 BASEDIR=$COSMODIR/common
-CLASS_VERSION=3.2.0
+CLASS_VERSION=3.2.1
 export CLASS_STD_DIR=$BASEDIR/class_public-$CLASS_VERSION
 rm -rf $CLASS_STD_DIR
 

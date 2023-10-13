@@ -12,7 +12,7 @@ export COSMOINSTALL="classy-pkgs.sh planck-pkgs.sh nersc-cosmosis-pkgs.sh cobaya
 # altd not necessary and suspected to cause random job hangs
 # craype-hugepages2M https://docs.nersc.gov/development/languages/python/faq-troubleshooting
 export UNLOADMODULES=""
-export LOADMODULES="gsl cray-hdf5"
+export LOADMODULES="cudatoolkit cudnn/8.9.1_cuda11 nccl/2.17.1-ofi cray-hdf5"
 export HOSTVARIABLE=NERSC_HOST
 
 export CC="gcc"

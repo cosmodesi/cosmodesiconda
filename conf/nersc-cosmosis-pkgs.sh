@@ -1,8 +1,9 @@
-pip install cosmosis
+PYTHON=$(which python)
+$PYTHON -m pip install cosmosis
 export COSMOSIS_SRC_DIR=$(python -c "import os, cosmosis; print(os.path.dirname(cosmosis.__file__))")
 mkdir -p $COSMODIR/cosmosis
 export COSMOSIS_STD_DIR=$COSMODIR/cosmosis/cosmosis-standard-library
-rm $CONDADIR/lib/libattr*
+#rm $CONDADIR/lib/libattr*
 
 source $CONFDIR/setup-cosmosis-nersc.sh
 
