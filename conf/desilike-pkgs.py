@@ -1,3 +1,7 @@
+#import jax
+# Global flag to set a specific platform, must be used at startup
+#jax.config.update('jax_platform_name', 'cpu')
+
 from desilike import setup_logging
 from desilike.install import Installer
 

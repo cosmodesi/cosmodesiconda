@@ -113,5 +113,5 @@ def test_jax():
     
 if __name__ == '__main__':
 
-    test_jax()
     test_torch()
+    test_jax()
