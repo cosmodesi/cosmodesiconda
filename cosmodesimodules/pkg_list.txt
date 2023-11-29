@@ -16,4 +16,5 @@ desilike @ https://github.com/cosmodesi/desilike @ branches/main
 desiutil @ https://github.com/desihub/desiutil @ branches/main
 desitarget @ https://github.com/desihub/desitarget @ branches/main
 desimodel @ https://github.com/desihub/desimodel @ branches/main
-desipipe @ https://github.com/adematti/desipipe @ branches/main
+desipipe @ https://github.com/cosmodesi/desipipe @ branches/main
+desi-y1-kp @ ../../desi-y1-kp

@@ -64,6 +64,7 @@ def configure_module(product, version, product_root, working_dir=None, dev=False
         working_dir = getcwd()
     module_keywords = {
         'name': product,
+        'product': product.replace('-', '_'),  # otherwise complaints
         'version': version,
         'product_root': product_root,
         'needs_bin': '# ',
@@ -343,10 +344,13 @@ class DesiInstall(object):
             self.log.warning('Add location to desiutil.install.known_products ' +
                              'if that is incorrect.')
         self.baseversion = os.path.basename(self.options.product_version)
-        self.github = False
+        self.github = self.local = False
         if 'github.com' in self.fullproduct:
             self.github = True
             self.log.debug("Detected GitHub install.")
+        elif os.path.exists(self.fullproduct):
+            self.local = True
+            self.log.debug('Detected local install at {}.'.format(self.fullproduct))
         return (self.fullproduct, self.baseproduct, self.baseversion)
 
     def identify_branch(self):
@@ -357,6 +361,7 @@ class DesiInstall(object):
         :class:`str`
             The full path to the branch code.
         """
+        if self.local: return self.fullproduct
         self.is_branch = (self.options.product_version.startswith('branches') or
                           self.options.product_version == 'trunk' or
                           self.options.product_version == 'main')
@@ -399,6 +404,8 @@ class DesiInstall(object):
         DesiInstallException
             If the subversion URL could not be found.
         """
+        if self.local:
+            return True
         if self.github:
             try:
                 r = requests.head(self.product_url)
@@ -443,6 +450,9 @@ class DesiInstall(object):
             self.log.debug("shutil.rmtree('%s')", self.working_dir)
             if not self.options.test:
                 shutil.rmtree(self.working_dir)
+        if self.local:
+            shutil.copytree(self.fullproduct, self.working_dir)
+            return
         if self.github:
             if self.is_branch:
                 try:
@@ -683,6 +693,8 @@ class DesiInstall(object):
         """
         self.module_file = os.path.join(self.working_dir, 'etc',
                                         self.baseproduct + '.module')
+        if not os.path.exists(self.module_file):
+            self.module_file = os.path.join(os.path.dirname(__file__), 'desiutil.module')
         if not os.path.exists(self.module_file):
             self.module_file = resource_filename('desiutil',
                                                  'data/desiutil.module')

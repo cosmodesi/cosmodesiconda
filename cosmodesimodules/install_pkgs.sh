@@ -23,6 +23,9 @@ while read line || [[ -n "$line" ]] ; do
     url=$(echo ${pkgurlversions[1]} | xargs)
     versions=$(echo ${pkgurlversions[2]} | xargs)
     IFS=',' read -ra versions <<< $versions
+    if [ ${#versions[@]} -eq 0 ]; then
+        versions=("main")
+    fi
     for version in ${versions[@]} ; do
         version=$(echo ${version} | xargs)
         echo $install_script $pkg $version
