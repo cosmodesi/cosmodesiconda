@@ -68,11 +68,26 @@ def test_torch():
 
     print(f'Result: {model.string()}')
 
+
+def test_tensorflow():
+
+    import tensorflow as tf
+    gpus = tf.config.experimental.list_physical_devices('GPU')
+    print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
+    tf.debugging.set_log_device_placement(True)
+    # Create some tensors
+    a = tf.constant([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]])
+    b = tf.constant([[1.0, 2.0], [3.0, 4.0], [5.0, 6.0]])
+    c = tf.matmul(a, b)
+    print(c)
+
     
 def test_jax():
-    
-    import jax.numpy as jnp
+
     import jax
+    # Global flag to set a specific platform, must be used at startup
+    #jax.config.update('jax_platform_name', 'gpu')
+    from jax import numpy as jnp
     import optax
     import functools
 
@@ -106,12 +121,38 @@ def test_jax():
         params = optax.apply_updates(params, updates)
 
     assert jnp.allclose(params, target_params), \
-    'Optimization should retrive the target params used to generate the data.'
+    'Optimization should retrieve the target params used to generate the data.'
 
     print(jax.default_backend(), jax.devices())
+
+
+def test_flax():
+    from typing import Sequence
+
+    import numpy as np
+    import jax
+    import jax.numpy as jnp
+    import flax.linen as nn
+
+    class MLP(nn.Module):
+        features: Sequence[int]
+
+        @nn.compact
+        def __call__(self, x):
+            for feat in self.features[:-1]:
+                x = nn.relu(nn.Dense(feat)(x))
+                x = nn.Dense(self.features[-1])(x)
+            return x
+
+    model = MLP([12, 8, 4])
+    batch = jnp.ones((32, 10))
+    variables = model.init(jax.random.key(0), batch)
+    output = model.apply(variables, batch)
     
     
 if __name__ == '__main__':
 
     test_torch()
+    test_tensorflow()
     test_jax()
+    test_flax()

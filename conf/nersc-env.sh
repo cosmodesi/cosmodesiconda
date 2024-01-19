@@ -5,14 +5,15 @@ export CONDAVERSION=2.0
 export GRP=desi
 export PRGENVS="PrgEnv-gnu PrgEnv-intel PrgEnv-cray PrgEnv-nvidia"
 export CONDAPRGENV=PrgEnv-gnu
-export MPILOGIN=T
 export COSMOINSTALL="classy-pkgs.sh planck-pkgs.sh nersc-cosmosis-pkgs.sh cobaya-pkgs.sh desilike-pkgs.sh desipipe-pkgs.sh"
 #export COSMOINSTALL="planck-pkgs.sh"
 # darshan not necessary and suspected to generate overhead
 # altd not necessary and suspected to cause random job hangs
 # craype-hugepages2M https://docs.nersc.gov/development/languages/python/faq-troubleshooting
 export UNLOADMODULES=""
-export LOADMODULES="cudatoolkit cudnn/8.9.1_cuda11 nccl/2.17.1-ofi cray-hdf5"
+#export LOADMODULES="cudatoolkit cudnn/8.9.1_cuda11 nccl/2.17.1-ofi cray-hdf5"
+#export LOADMODULES="cudatoolkit/12.2 cudnn/8.9.3_cuda12 nccl/2.17.1-ofi cray-hdf5"
+export LOADMODULES="cray-hdf5 cudatoolkit/12.2"
 export HOSTVARIABLE=NERSC_HOST
 
 export CC="gcc"
@@ -21,7 +22,6 @@ export CFLAGS="-O3 -fPIC -pthread"
 export FCFLAGS="-O3 -fPIC -pthread -fexceptions"
 export NTMAKE=8
 
-# needed for mpi4py
 if [ "${NERSC_HOST}" == "cori" ] ; then
   export UNLOADMODULES="darshan altd craype-hugepages2M"
   # See https://docs.nersc.gov/development/languages/python/parallel-python/
@@ -30,11 +30,10 @@ if [ "${NERSC_HOST}" == "cori" ] ; then
   export MPICC="cc -shared"
 elif [ "${NERSC_HOST}" == "perlmutter" ] ; then
   # See https://docs.nersc.gov/development/languages/python/using-python-perlmutter
-  export MPILOGIN=""
-  export LOADMODULES="e4s/23.05 ${LOADMODULES} cudatoolkit texlive"
+  export LOADMODULES="e4s/23.05 ${LOADMODULES} texlive"
   export ENVVARIABLES="MPI4PY_RC_RECV_MPROBE FALSE CXI_FORK_SAFE 1 CXI_FORK_SAFE_HP 1"
-  #export MPICC="cc -target-accel=nvidia80 -shared"
-  export MPICC="cc -shared"
+  export MPICC="cc -target-accel=nvidia80 -shared"
 fi
 export MPICCPFFT="cc"
-export ENVVARIABLES="${ENVVARIABLES} DESI_ROOT /global/cfs/cdirs/desi"
+export ENVVARIABLES="${ENVVARIABLES} TF_CPP_MIN_LOG_LEVEL 2"
+#export ENVVARIABLES_LOGIN="JAX_PLATFORM_NAME CPU"

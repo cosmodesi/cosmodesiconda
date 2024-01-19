@@ -59,7 +59,6 @@ if [ ! -z $HOSTVARIABLE ] ; then
 fi
 COSMODESICONDA=$ROOTDIRHOST/cosmodesiconda/$DCONDAVERSION
 CONDADIR=$COSMODESICONDA/conda
-MPILOGINDIR=$COSMODESICONDA/mpilogin
 AUXDIR=$COSMODESICONDA/aux
 MODULEDIR=$COSMODESICONDA/modulefiles/cosmodesiconda
 if [ ! -z $COSMOPREFIX ] ; then
@@ -113,8 +112,9 @@ sed -i 's@_CONDAPRGENV_@'"$CONDAPRGENV"'@g' $MODULEFILE
 sed -i 's@_PRGENVS_@'"$PRGENVS"'@g' $MODULEFILE
 sed -i 's@_UNLOADMODULES_@'"$UNLOADMODULES"'@g' $MODULEFILE
 sed -i 's@_LOADMODULES_@'"$LOADMODULES"'@g' $MODULEFILE
+sed -i 's@_ENVVARIABLES_NODES_@'"$ENVVARIABLES_NODES"'@g' $MODULEFILE
+sed -i 's@_ENVVARIABLES_LOGIN_@'"$ENVVARIABLES_LOGIN"'@g' $MODULEFILE
 sed -i 's@_ENVVARIABLES_@'"$ENVVARIABLES"'@g' $MODULEFILE
-sed -i 's@_MPILOGIN_@'"$MPILOGIN"'@g' $MODULEFILE
 sed -i 's@_PATH_@'"$EXPORTPATH"'@g' $MODULEFILE
 sed -i 's@_PYTHONPATH_@'"$EXPORTPYTHONPATH"'@g' $MODULEFILE
 sed -i 's@_LDLIBRARYPATH_@'"$EXPORTLDLIBRARYPATH"'@g' $MODULEFILE
@@ -124,24 +124,6 @@ cp cosmodesiconda.modversion $MODULEDIR/.version_$DCONDAVERSION
 chgrp -R $GRP $MODULEDIR
 chmod -R u=rwX,g=rX,o-rwx $MODULEDIR
 
-if [ ! -z ${MPILOGIN} ] ; then
-    # Now patch for login node
-    python$PYVERSION -m compileall -f "$MPILOGINDIR/lib/python$PYVERSION/site-packages"
-
-    MODULEDIR=$COSMODESICONDA/modulefiles/mpilogin
-    mkdir -p $MODULEDIR
-
-    MODULEFILE=$MODULEDIR/$DCONDAVERSION
-    cp $topdir/mpilogin.gen $MODULEFILE
-    sed -i 's@_MPILOGINDIR_@'"$MPILOGINDIR"'@g' $MODULEFILE
-    sed -i 's@_PYVERSION_@'"$PYVERSION"'@g' $MODULEFILE
-
-    # Set permissions
-    echo Setting permissions at $(date)
-
-    chgrp -R $GRP $COSMODESICONDA $COSMODIR
-    chmod -R u=rwX,g=rX,o-rwx $COSMODESICONDA $COSMODIR
-fi
 # All done
 echo Done at $(date)
 duration=$SECONDS

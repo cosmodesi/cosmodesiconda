@@ -3,8 +3,10 @@ echo Current time $(date) Installing conda packages
 echo condadir is $CONDADIR
 # matplotlib: apparently, bug in inset_axis with 3.7.2
 # cython: https://github.com/gevent/gevent/issues/1899
+# libblas with openblas: yields warnings with NUM_THREADS
 conda install --copy --yes -c conda-forge \
     future \
+    'libblas=*=*mkl' \
     'numpy>=1.16' \
     'scipy>=1.5.0' \
     'matplotlib=3.7.1' \
@@ -16,7 +18,6 @@ conda install --copy --yes -c conda-forge \
     sympy \
     numexpr \
     'astropy>=4.0.0' \
-    scikit-learn \
     ipython \
     jupyterlab \
     wurlitzer \
@@ -27,6 +28,8 @@ conda install --copy --yes -c conda-forge \
     pytest \
     scikit-learn \
     tabulate \
+    gdb \
+    htop \
 && mplrc="$CONDADIR/lib/python$PYVERSION/site-packages/matplotlib/mpl-data/matplotlibrc"; \
     cat ${mplrc} | sed -e "s#^backend.*#backend : TkAgg#" > ${mplrc}.tmp; \
     mv ${mplrc}.tmp ${mplrc} \

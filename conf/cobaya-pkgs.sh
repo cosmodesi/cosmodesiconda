@@ -1,7 +1,7 @@
 # Cobaya stuffs
 
 PYTHON=$(which python)
-$PYTHON -m pip install cobaya
+$PYTHON -m pip install git+https://github.com/CobayaSampler/cobaya
 export COBAYA_STD_DIR=$COSMODIR/cobaya
 rm -rf $COBAYA_STD_DIR
 export COBAYA_PACKAGES_PATH=$COBAYA_STD_DIR

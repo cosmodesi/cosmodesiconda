@@ -30,6 +30,8 @@ def test_pycorr():
     setup_logging()
     TwoPointCorrelationFunction(mode='smu', edges=(np.linspace(0., 50., 51), np.linspace(-1., 1., 51)), data_positions1=data[:3],
                                 randoms_positions1=randoms[:3], data_weights1=data[3:], randoms_weights1=randoms[3:], nthreads=1)
+    TwoPointCorrelationFunction(mode='smu', edges=(np.linspace(0., 50., 51), np.linspace(-1., 1., 51)), data_positions1=data[:3],
+                                randoms_positions1=randoms[:3], data_weights1=data[3:], randoms_weights1=randoms[3:], nthreads=1, gpu=True)
 
 
 def test_pypower():
@@ -116,12 +118,12 @@ def test_inference():
     model = get_model(info)
     get_sampler(info_sampler, model=model).run()
 
-    info['params']['yp2'] = {'prior': {'min': 0.5, 'max': 1.5}}  # for ACT
+    #info['params']['yp2'] = {'prior': {'min': 0.5, 'max': 1.5}}  # for ACT
     info['likelihood'] = {'wmaplike.WMAPLike': None, 'spt3g_2020.TEEE': None}  # , 'pyactlike.ACTPol_lite_DR4': None theory deprecated
     model = get_model(info)
     get_sampler(info_sampler, model=model).run()
 
-    info['params']['yp2'] = {'prior': {'min': 0.5, 'max': 1.5}}  # for ACT
+    #info['params']['yp2'] = {'prior': {'min': 0.5, 'max': 1.5}}  # for ACT
     info['likelihood'] = {'wmaplike.WMAPLike': None, 'spt3g_2022.TTTEEE': None}
     model = get_model(info)
     get_sampler(info_sampler, model=model).run()

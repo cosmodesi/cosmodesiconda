@@ -10,6 +10,12 @@ installer = Installer()
 
 from desilike.likelihoods.supernovae import PantheonSNLikelihood
 installer(PantheonSNLikelihood())
+
+from desilike.likelihoods.supernovae import PantheonPlusSNLikelihood
+installer(PantheonPlusSNLikelihood())
+
+from desilike.likelihoods.supernovae import Union3SNLikelihood
+installer(Union3SNLikelihood())
             
 from desilike.likelihoods.cmb import TTTEEEHighlPlanck2018PlikLiteLikelihood
 installer(TTTEEEHighlPlanck2018PlikLiteLikelihood())

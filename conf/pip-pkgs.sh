@@ -13,10 +13,19 @@ $PYTHON -m pip install --no-cache-dir --no-deps healpy camb emcee dynesty zeus-m
 # for abacusutils
 $PYTHON -m pip install --no-cache-dir 'blosc>=1.9.2' # for some reason, ImportError when conda install
 $PYTHON -m pip install parallel_numpy_rng
-# for desilike
-$PYTHON -m pip install torch==2.0.1+cu117 torchvision==0.15.2+cu117 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu117
-$PYTHON -m pip install "jax[cuda11_cudnn82]==0.4.7" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html  # this will update cuda libraries installed by torch, but torch does not seem to complain
-pip install chex==v0.1.7  # higher versions required
+# ML
+pip install torch==2.1.2+cpu -f https://download.pytorch.org/whl/torch_stable.html
+$PYTHON -m pip install tensorflow==2.15.0
+$PYTHON -m pip install --upgrade "jax[cuda12_pip]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+$PYTHON -m pip install flax
+
+
+#$PYTHON -m pip install torch==2.0.1+cu117 torchvision==0.15.2+cu117 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu117
+#$PYTHON -m pip install "tensorflow==2.11.0"
+#$PYTHON -m pip install "jax[cuda11_cudnn82]==0.4.7" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html  # this will update cuda libraries installed by torch, but torch does not seem to complain
+#$PYTHON -m pip install "orbax-checkpoint=0.4.7"
+#$PYTHON -m pip install "flax==0.7.2"
+#$PYTHON -m pip install "chex==v0.1.7"  # higher versions required
 $PYTHON -m pip install optax
 $PYTHON -m pip install SciencePlots
 

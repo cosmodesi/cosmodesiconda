@@ -53,7 +53,8 @@ cosmodesimodules
 
 To install a suite of pyrecon, pycorr, etc. packages::
 
-    ./cosmodesimodules/install.sh
+    cd cosmodesimodules
+    ./install.sh
 
 Packages are installed in::
 

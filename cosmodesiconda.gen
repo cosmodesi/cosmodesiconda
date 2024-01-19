@@ -18,6 +18,29 @@ proc ModulesHelp { } {
 
 conflict cosmodesiconda
 
+# in case _CONDAPRGENV_ is not loaded, swap it in
+setenv CRAYPE_LINK_TYPE dynamic
+if [ module-info mode load ] {
+    if [ is-loaded _CONDAPRGENV_ ] {
+    } else {
+        foreach prgenv [list _PRGENVS_] {
+            if { [string trim $prgenv] != "" && [is-loaded $prgenv] } {
+                module swap $prgenv _CONDAPRGENV_
+            }
+        }
+    }
+    foreach mod [list _UNLOADMODULES_] {
+        if { [string trim $mod] != "" } {
+            module unload $mod
+        }
+    }
+    foreach mod [list _LOADMODULES_] {
+        if { [string trim $mod] != "" } {
+            module load $mod
+        }
+    }
+}
+
 # This is set by OS python and gives us problems.
 unsetenv PYTHONSTARTUP
 
@@ -43,35 +66,14 @@ foreach {envname envvalue} [list _ENVVARIABLES_] {
     setenv $envname $envvalue
 }
 
-# in case _CONDAPRGENV_ is not loaded, swap it in
-setenv CRAYPE_LINK_TYPE dynamic
-if [ module-info mode load ] {
-    if [ is-loaded _CONDAPRGENV_ ] {
-    } else {
-        foreach prgenv [list _PRGENVS_] {
-            if { [string trim $prgenv] != "" && [is-loaded $prgenv] } {
-                module swap $prgenv _CONDAPRGENV_
-            }
-        }
+set hostname [exec hostname]
+if { [string match "nid*" $hostname] } {
+    foreach {envname envvalue} [list _ENVVARIABLES_NODES_] {
+        setenv $envname $envvalue
     }
-    foreach mod [list _UNLOADMODULES_] {
-        if { [string trim $mod] != "" } {
-            module unload $mod
-        }
-    }
-    foreach mod [list _LOADMODULES_] {
-        if { [string trim $mod] != "" } {
-            module load $mod
-        }
-    }
-}
-
-if { [string trim "_MPILOGIN_"] != "" } {
-    set hostname [uname nodename]
-    if { [string match "nid*" $hostname] } {
-        module unload mpilogin
-    } else {
-        module load mpilogin/_DCONDAVERSION_
+} else {
+   foreach {envname envvalue} [list _ENVVARIABLES_LOGIN_] {
+        setenv $envname $envvalue
     }
 }
 
