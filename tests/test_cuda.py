@@ -152,6 +152,9 @@ def test_flax():
     
 if __name__ == '__main__':
 
+    import os
+    #print(os.getenv('SLURM_LOCALID'))
+    #os.environ['CUDA_VISIBLE_DEVICES'] = os.getenv('SLURM_LOCALID')
     test_torch()
     test_tensorflow()
     test_jax()

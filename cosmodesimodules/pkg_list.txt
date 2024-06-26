@@ -12,10 +12,13 @@ sysnet @ https://github.com/mehdirezaie/sysnetdev @ branches/master
 velocileptors @ https://github.com/sfschen/velocileptors @ branches/master
 pybird @ https://github.com/pierrexyz/pybird @ branches/master
 folps @ https://github.com/henoriega/FOLPS-nu @ branches/main
-desilike @ https://github.com/cosmodesi/desilike @ branches/main
+folpsax @ https://github.com/cosmodesi/folpsax @ branches/main
+desilike @ https://github.com/cosmodesi/desilike @ branches/main,branches/hmc
+desipipe @ https://github.com/cosmodesi/desipipe @ branches/main
+thecov @ https://github.com/cosmodesi/thecov @ branches/main
 desiutil @ https://github.com/desihub/desiutil @ branches/main
 desitarget @ https://github.com/desihub/desitarget @ branches/main
 desimodel @ https://github.com/desihub/desimodel @ branches/main
-desipipe @ https://github.com/cosmodesi/desipipe @ branches/main
-thecov @ https://github.com/cosmodesi/thecov @ branches/main
+desimeter @ https://github.com/desihub/desimeter @ branches/main
+fiberassign @ https://github.com/desihub/fiberassign @ branches/main
 #desi-y1-kp @ ../../desi-y1-kp

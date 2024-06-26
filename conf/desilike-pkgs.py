@@ -7,7 +7,7 @@ from desilike.install import Installer
 
 setup_logging()
 installer = Installer()
-
+"""
 from desilike.likelihoods.supernovae import PantheonSNLikelihood
 installer(PantheonSNLikelihood())
 
@@ -16,9 +16,18 @@ installer(PantheonPlusSNLikelihood())
 
 from desilike.likelihoods.supernovae import Union3SNLikelihood
 installer(Union3SNLikelihood())
-            
+
+from desilike.likelihoods.supernovae import DESY5SNLikelihood
+installer(DESY5SNLikelihood())
+
 from desilike.likelihoods.cmb import TTTEEEHighlPlanck2018PlikLiteLikelihood
 installer(TTTEEEHighlPlanck2018PlikLiteLikelihood())
 
 from desilike.likelihoods.cmb import FullGridPlanck2018GaussianLikelihood
 installer(FullGridPlanck2018GaussianLikelihood())
+"""
+from desilike.likelihoods.supernovae import Union3SNLikelihood
+installer(Union3SNLikelihood())
+
+from desilike.likelihoods.supernovae import DESY5SNLikelihood
+installer(DESY5SNLikelihood())

@@ -87,6 +87,19 @@ def test_desilike():
     profiler = MinuitProfiler(likelihood, rescale=True)
     profiles = profiler.maximize(niterations=1)
 
+    from desilike.theories.galaxy_clustering import ShapeFitPowerSpectrumTemplate, KaiserTracerPowerSpectrumMultipoles
+    theory = KaiserTracerPowerSpectrumMultipoles(template=ShapeFitPowerSpectrumTemplate(z=1.))
+    theory()
+    # theory behaves like any function for jax
+    import jax
+    from jax import numpy as jnp
+    jac = jax.jacfwd(theory)  # jacobian function
+    jac = jax.jit(jac)  # just-in-time compilation
+    dpoles = jac(dict(dm=0., qpar=1., qper=1.))  # return jacobian
+    vtheory = jax.vmap(lambda p: theory(p, return_derived=True))  # vectorized theory, also returning derived parameters
+    poles, derived = vtheory(dict(dm=jnp.linspace(0., 0.01, 10)))
+    print(poles)
+
 
 def test_inference():
     # cosmosis, montepython
@@ -115,6 +128,29 @@ def test_inference():
     info_sampler = {'evaluate': {}}
     from cobaya.model import get_model
     from cobaya.sampler import get_sampler
+
+    model = get_model(info)
+    get_sampler(info_sampler, model=model).run()
+
+    info['likelihood'] = {'planck_2018_highl_CamSpec2021.TTTEEE': None, 'planckpr4lensing.PlanckPR4Lensing': None}
+    model = get_model(info)
+    get_sampler(info_sampler, model=model).run()
+
+    info['likelihood'] = {'planck_NPIPE_highl_CamSpec.TTTEEE': None, 'planckpr4lensing.PlanckPR4LensingMarged': None}
+    model = get_model(info)
+    get_sampler(info_sampler, model=model).run()
+
+    info['likelihood'] = {'planck_NPIPE_highl_CamSpec.TEEE': None, 'planckpr4lensing.PlanckPR4LensingMarged': None}
+    model = get_model(info)
+    get_sampler(info_sampler, model=model).run()
+
+    info['likelihood'] = {'planck_2020_hillipop.TTTEEE': None, 'planckpr4lensing.PlanckPR4LensingMarged': None}
+    model = get_model(info)
+    get_sampler(info_sampler, model=model).run()
+
+    info['likelihood'] = {'act_dr6_lenslike.ACTDR6LensLike': {'lens_only': False, 'stop_at_error': True, 'lmax': 4000, 'variant': 'act_baseline'}}
+    info['theory']['classy']['extra_args'].update({'modes': 's', 'output': 'tCl, pCl, lCl'})
+    info['debug'] = True
     model = get_model(info)
     get_sampler(info_sampler, model=model).run()
 
@@ -131,6 +167,19 @@ def test_inference():
     from pypolychord import settings
 
 
+def test_desihub():
+    from fiberassign.hardware import load_hardware, get_default_exclusion_margins
+    from fiberassign._internal import Hardware
+    from fiberassign.tiles import load_tiles
+    from fiberassign.targets import Targets, TargetsAvailable, LocationsAvailable, create_tagalong, load_target_file, targets_in_tiles
+    from fiberassign.assign import Assignment
+    from fiberassign.utils import Logger
+    from desitarget.io import read_targets_in_tiles
+    import desimodel.focalplane
+    import desimodel.footprint
+    import desimeter
+
+
 if __name__ == '__main__':
 
     test_cosmoprimo()
@@ -141,3 +190,4 @@ if __name__ == '__main__':
     test_mockfactory()
     test_desilike()
     test_inference()
+    test_desihub()
