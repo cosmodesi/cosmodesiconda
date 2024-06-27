@@ -7,7 +7,7 @@ export PRGENVS="gnu9 intel"
 export CONDAPRGENV=gnu9
 export COSMOINSTALL="classy-pkgs.sh planck-pkgs.sh cobaya-pkgs.sh desilike-pkgs.sh desipipe-pkgs.sh"
 export UNLOADMODULES=anaconda
-export LOADMODULES="cports/rhel-8.x86_64 gsl openmpi hdf5"
+export LOADMODULES="cports/rhel-7.x86_64 gsl hdf5 openmpi"
 export HOSTVARIABLE=
 
 export CC="gcc"
@@ -19,3 +19,6 @@ export NTMAKE=8
 export MPICC="mpicc"
 export MPICCPFFT="mpicc"
 export ENVVARIABLES="${ENVVARIABLES} DESI_ROOT /drf/projets/desi"
+export ENVVARIABLES_LOGIN="JAX_PLATFORMS cpu"
+export ENVVARIABLES_NODES="JAX_PLATFORMS cpu"
+

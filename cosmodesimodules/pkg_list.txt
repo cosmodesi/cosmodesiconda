@@ -22,3 +22,4 @@ desimodel @ https://github.com/desihub/desimodel @ branches/main
 desimeter @ https://github.com/desihub/desimeter @ branches/main
 fiberassign @ https://github.com/desihub/fiberassign @ branches/main
 #desi-y1-kp @ ../../desi-y1-kp
+
