@@ -30,14 +30,17 @@ cd PolyChordLite && $PYTHON -m python setup.py install
 rm -rf PolyChordLite
 #wget https://raw.githubusercontent.com/xgarrido/spt_likelihoods/master/examples/spt3g_example.yaml .
 #cobaya-run spt3g_example.yaml
-#pip install --no-cache-dir git+https://github.com/ACTCollaboration/act_dr6_lenslike
+version='1.2'
+$PYTHON -m pip install --no-cache-dir act_dr6_lenslike==$version
+#$PYTHON -m pip install --no-cache-dir git+https://github.com/ACTCollaboration/act_dr6_lenslike
 ACT_DIR=$COBAYA_PACKAGES_PATH/data/act_dr6_lenslike/
 mkdir -p $ACT_DIR
-wget -O $ACT_DIR/tmp-act.tgz https://lambda.gsfc.nasa.gov/data/suborbital/ACT/ACT_dr6/likelihood/data/ACT_dr6_likelihood_v1.1.tgz
+wget -O $ACT_DIR/tmp-act.tgz https://lambda.gsfc.nasa.gov/data/suborbital/ACT/ACT_dr6/likelihood/data/ACT_dr6_likelihood_v$version.tgz
 tar -C $ACT_DIR -xvzf $ACT_DIR/tmp-act.tgz
 rm -rf $ACT_DIR/tmp-act.tgz
-ACT_SYMLINK=$(python -c "import os, act_dr6_lenslike; print(os.path.dirname(act_dr6_lenslike.__file__))")/data/v1.1
-ln -s $ACT_DIR/v1.1 $ACT_SYMLINK
+ACT_SYMLINK=$(python -c "import os, act_dr6_lenslike; print(os.path.dirname(act_dr6_lenslike.__file__))")/data
+mkdir -p $ACT_SYMLINK
+ln -s $ACT_DIR/v$version $ACT_SYMLINK/v$version
 export ENVVARIABLES="$ENVVARIABLES COBAYA_STD_DIR $COBAYA_STD_DIR COBAYA_PACKAGES_PATH $COBAYA_PACKAGES_PATH COBAYA_USE_FILE_LOCKING F"
 rm -rf $COBAYA_PACKAGES_PATH/code/planck/clik-main
 ln -s $PLANCK_SRC_DIR/code/plc_3.0/plc-3.1 $COBAYA_PACKAGES_PATH/code/planck/clik-main  # installed by planck-pkgs.sh
