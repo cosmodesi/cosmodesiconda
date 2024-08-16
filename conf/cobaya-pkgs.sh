@@ -26,7 +26,7 @@ cobaya-install spt3g_2020.TEEE spt3g_2022.TTTEEE
 #rm -rf hillipop
 
 git clone https://github.com/PolyChord/PolyChordLite.git
-cd (PolyChordLite && $PYTHON -m python setup.py install)
+(cd PolyChordLite && $PYTHON -m python setup.py install)
 rm -rf PolyChordLite
 #wget https://raw.githubusercontent.com/xgarrido/spt_likelihoods/master/examples/spt3g_example.yaml .
 #cobaya-run spt3g_example.yaml
