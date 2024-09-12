@@ -9,7 +9,9 @@ curl "http://pla.esac.esa.int/pla/aio/product-action?COSMOLOGY.FILE_ID=$TARBALL"
 tar -xvzf $TARBALL -C $BASEDIR
 CLIKDIR=$BASEDIR/code/plc_3.0/plc-3.1
 export C_INCLUDE_PATH=$(python -c "from sysconfig import get_path as gp; print(gp(\"include\"))"):$C_INCLUDE_PATH
-(cd $CLIKDIR; CFLAGS="" FCFLAGS="" ./waf configure --cfitsio_prefix=$CONDADIR --lapack_prefix=$CONDADIR; ./waf install)
+cd $CLIKDIR; cd .. ; git clone https://github.com/JiangJQ2000/clik.git; cp -rf clik/. plc-3.1/ ; rm -rf clik
+cd $CLIKDIR; sed -i "1s|.*|#!"$(which python)"|" "waf"
+(cd $CLIKDIR; CFLAGS="" FCFLAGS="" ./waf configure --cfitsio_prefix=$CONDADIR --lapack_prefix=$CONDADIR; ./waf -j 1 install)
 rm $TARBALL
 
 TARBALL=COM_Likelihood_Data-baseline_R3.00.tar.gz
