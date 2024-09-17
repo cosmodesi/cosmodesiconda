@@ -8,12 +8,12 @@ export CONDAPRGENV=PrgEnv-gnu
 export COSMOINSTALL="classy-pkgs.sh planck-pkgs.sh nersc-cosmosis-pkgs.sh cobaya-pkgs.sh desilike-pkgs.sh desipipe-pkgs.sh nersc-scripts.sh"
 #export COSMOINSTALL="planck-pkgs.sh"
 # darshan not necessary and suspected to generate overhead
-# altd not necessary and suspected to cause random job hangs
+# altd not necessary and suspe  cted to cause random job hangs
 # craype-hugepages2M https://docs.nersc.gov/development/languages/python/faq-troubleshooting
 export UNLOADMODULES=""
 #export LOADMODULES="cudatoolkit cudnn/8.9.1_cuda11 nccl/2.17.1-ofi cray-hdf5"
 #export LOADMODULES="cudatoolkit/12.2 cudnn/8.9.3_cuda12 nccl/2.17.1-ofi cray-hdf5"
-export LOADMODULES="intel hdf5 gsl mvapich2-gdr-cuda12 petsc/3.19-cuda cuda/12.2"
+export LOADMODULES="intel/19.1.1 hdf5 impi cuda gsl petsc/3.19-cuda"
 export HOSTVARIABLE=NERSC_HOST
 
 export CC="gcc"
