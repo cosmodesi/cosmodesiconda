@@ -127,4 +127,10 @@ chmod -R u=rwX,g=rX,o-rwx $MODULEDIR
 # All done
 echo Done at $(date)
 duration=$SECONDS
+
+echo Intalling polychord
+cd $WORK/software/desi/cosmo/cosmodesiconda/my-desiconda/cobaya/code/PolyChordLite
+make
+python -m pip install .
+cd $WORK
 echo "Installation took $(($duration / 60)) minutes and $(($duration % 60)) seconds."
