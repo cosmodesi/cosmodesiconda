@@ -145,8 +145,9 @@ cobaya install polychord
 cd $WORK/software/desi/cosmo/cosmodesiconda/my-desiconda/cobaya/code/PolyChordLite
 make clean
 make COMPILER_TYPE=gnu
-pip install . --user
-make clean
+make clean 
+make COMPILER_TYPE=gnu
+make clean 
 make COMPILER_TYPE=gnu
 pip install . --user
 cd $WORK
