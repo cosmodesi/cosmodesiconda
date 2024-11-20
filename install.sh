@@ -128,8 +128,7 @@ chmod -R u=rwX,g=rX,o-rwx $MODULEDIR
 echo Done at $(date)
 duration=$SECONDS
 
-module unload mvapich2-gdr-cuda12/2.3.7
-module load gcc/9.4.0
+module restore
 
 MPICC=$MPICCPFFT $PYTHON -m pip install --no-cache-dir git+https://github.com/adematti/pfft-python
 MPICC=$MPICCPFFT $PYTHON -m pip install --no-cache-dir git+https://github.com/adematti/pmesh
@@ -141,10 +140,10 @@ conda install --copy --yes --verbose -c conda-forge \
     gxx_linux-64\
     gfortran\
 
-
 echo Intalling polychord
 cobaya install polychord
 cd $WORK/software/desi/cosmo/cosmodesiconda/my-desiconda/cobaya/code/PolyChordLite
+make clean
 make COMPILER_TYPE=gnu
 pip install . --user
 cd $WORK
