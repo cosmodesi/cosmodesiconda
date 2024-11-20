@@ -142,14 +142,5 @@ conda install --copy --yes --verbose -c conda-forge \
 
 echo Intalling polychord
 cobaya install polychord
-cd $WORK/software/desi/cosmo/cosmodesiconda/my-desiconda/cobaya/code/PolyChordLite
-make clean
-make COMPILER_TYPE=gnu
-make clean 
-make COMPILER_TYPE=gnu
-make clean 
-make COMPILER_TYPE=gnu
-pip install . --user
-cd $WORK
 # $PYTHON -m pip install --force --no-cache-dir --no-binary=mpi4py mpi4py
 echo "Installation took $(($duration / 60)) minutes and $(($duration % 60)) seconds."
