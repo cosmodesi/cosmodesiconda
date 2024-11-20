@@ -146,6 +146,9 @@ cd $WORK/software/desi/cosmo/cosmodesiconda/my-desiconda/cobaya/code/PolyChordLi
 make clean
 make COMPILER_TYPE=gnu
 pip install . --user
+make clean
+make COMPILER_TYPE=gnu
+pip install . --user
 cd $WORK
 # $PYTHON -m pip install --force --no-cache-dir --no-binary=mpi4py mpi4py
 echo "Installation took $(($duration / 60)) minutes and $(($duration % 60)) seconds."
