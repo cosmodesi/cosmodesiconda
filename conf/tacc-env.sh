@@ -13,7 +13,7 @@ export COSMOINSTALL="classy-pkgs.sh planck-pkgs.sh nersc-cosmosis-pkgs.sh cobaya
 export UNLOADMODULES=""
 #export LOADMODULES="cudatoolkit cudnn/8.9.1_cuda11 nccl/2.17.1-ofi cray-hdf5"
 #export LOADMODULES="cudatoolkit/12.2 cudnn/8.9.3_cuda12 nccl/2.17.1-ofi cray-hdf5"
-export LOADMODULES="hdf5 cuda gsl petsc/3.19-cuda"
+export LOADMODULES="intel hdf5 gsl mvapich2-gdr-cuda12 petsc/3.19-cuda cuda/12.2"
 export HOSTVARIABLE=NERSC_HOST
 
 export CC="gcc"

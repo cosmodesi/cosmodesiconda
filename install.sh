@@ -128,9 +128,25 @@ chmod -R u=rwX,g=rX,o-rwx $MODULEDIR
 echo Done at $(date)
 duration=$SECONDS
 
+module unload mvapich2-gdr-cuda12/2.3.7
+module load gcc/9.4.0
+
+MPICC=$MPICCPFFT $PYTHON -m pip install --no-cache-dir git+https://github.com/adematti/pfft-python
+MPICC=$MPICCPFFT $PYTHON -m pip install --no-cache-dir git+https://github.com/adematti/pmesh
+MPICC=$MPICCPFFT $PYTHON -m pip install --no-cache-dir git+https://github.com/adematti/getdist
+conda install --copy --yes --verbose -c conda-forge \
+    mpi4py \
+    mpich \
+    gcc_linux-64 \
+    gxx_linux-64\
+    gfortran\
+
+
 echo Intalling polychord
+cobaya install polychord
 cd $WORK/software/desi/cosmo/cosmodesiconda/my-desiconda/cobaya/code/PolyChordLite
-make
-python -m pip install .
+make COMPILER_TYPE=gnu
+pip install . --user
 cd $WORK
+# $PYTHON -m pip install --force --no-cache-dir --no-binary=mpi4py mpi4py
 echo "Installation took $(($duration / 60)) minutes and $(($duration % 60)) seconds."

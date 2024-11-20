@@ -5,10 +5,6 @@ PYTHON=$(which python)
 $PYTHON -m pip install 'ipywidgets==8.0.4'
 # see https://docs.nersc.gov/development/languages/python/parallel-python/
 # also https://docs.nersc.gov/development/languages/python/using-python-perlmutter/
-$PYTHON -m pip install --force --no-cache-dir --no-binary=mpi4py mpi4py
-MPICC=$MPICCPFFT $PYTHON -m pip install --no-cache-dir git+https://github.com/adematti/pfft-python
-MPICC=$MPICCPFFT $PYTHON -m pip install --no-cache-dir git+https://github.com/adematti/pmesh
-MPICC=$MPICCPFFT $PYTHON -m pip install --no-cache-dir git+https://github.com/adematti/getdist
 # install healpy with pip, as sometimes conda yields WARNING: version mismatch between CFITSIO header (as it reinstalls cfitsio)
 $PYTHON -m pip install --no-cache-dir --no-deps healpy camb isitgr emcee dynesty zeus-mcmc schwimmbad dill corner iminuit Py-BOBYQA bigfile hankl chainconsumer pydantic  # pydantic for chainconsumer
 $PYTHON -m pip install --no-cache-dir --no-deps git+https://github.com/minaskar/pocomc.git

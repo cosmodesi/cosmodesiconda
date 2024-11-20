@@ -4,7 +4,6 @@ echo condadir is $CONDADIR
 # matplotlib: apparently, bug in inset_axis with 3.7.2
 # cython: https://github.com/gevent/gevent/issues/1899
 # libblas with openblas: yields warnings with NUM_THREADS
-module unload intel impi
 conda install --copy --yes --verbose -c conda-forge \
     future \
     'libblas=*=*mkl' \
@@ -31,10 +30,6 @@ conda install --copy --yes --verbose -c conda-forge \
     tabulate \
     gdb \
     htop \
-    mpi4py \
-    mpich \
-    gcc_linux-64 \
-    gxx_linux-64\
 && mplrc="$CONDADIR/lib/python$PYVERSION/site-packages/matplotlib/mpl-data/matplotlibrc"; \
     cat ${mplrc} | sed -e "s#^backend.*#backend : TkAgg#" > ${mplrc}.tmp; \
     mv ${mplrc}.tmp ${mplrc} \
