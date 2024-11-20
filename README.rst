@@ -105,3 +105,7 @@ cosmodesimodules
 To install a suite of pyrecon, pycorr, etc. packages::
 
     ./cosmodesimodules/install.sh
+
+
+TD;DR: after logging in to TACC, run::
+    cdw; git clone -b TACC https://github.com/cosmodesi/cosmodesiconda.git ; cd cosmodesiconda ; export CONF=tacc ; DCONDAVERSION=my-desiconda PREFIX=$WORK/software/desi/ PKGS=default $WORK/cosmodesiconda/install.sh 2>&1 | tee log
