@@ -128,9 +128,6 @@ chmod -R u=rwX,g=rX,o-rwx $MODULEDIR
 echo Done at $(date)
 duration=$SECONDS
 
-module reset
-module load gcc/9.4.0
-
 MPICC=$MPICCPFFT $PYTHON -m pip install --no-cache-dir git+https://github.com/adematti/pfft-python
 MPICC=$MPICCPFFT $PYTHON -m pip install --no-cache-dir git+https://github.com/adematti/pmesh
 MPICC=$MPICCPFFT $PYTHON -m pip install --no-cache-dir git+https://github.com/adematti/getdist
@@ -146,6 +143,7 @@ cobaya install polychord
 cd $WORK/software/desi/cosmo/cosmodesiconda/my-desiconda/cobaya/code/PolyChordLite
 make clean
 make COMPILER_TYPE=gnu
+module load gcc/9.4.0
 pip install . --user
 cd $WORK
 # $PYTHON -m pip install --force --no-cache-dir --no-binary=mpi4py mpi4py
