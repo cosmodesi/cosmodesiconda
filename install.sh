@@ -128,7 +128,8 @@ chmod -R u=rwX,g=rX,o-rwx $MODULEDIR
 echo Done at $(date)
 duration=$SECONDS
 
-module restore
+module reset
+module load gcc/9.4.0
 
 MPICC=$MPICCPFFT $PYTHON -m pip install --no-cache-dir git+https://github.com/adematti/pfft-python
 MPICC=$MPICCPFFT $PYTHON -m pip install --no-cache-dir git+https://github.com/adematti/pmesh
@@ -142,5 +143,10 @@ conda install --copy --yes --verbose -c conda-forge \
 
 echo Intalling polychord
 cobaya install polychord
+cd $WORK/software/desi/cosmo/cosmodesiconda/my-desiconda/cobaya/code/PolyChordLite
+make clean
+make COMPILER_TYPE=gnu
+pip install . --user
+cd $WORK
 # $PYTHON -m pip install --force --no-cache-dir --no-binary=mpi4py mpi4py
 echo "Installation took $(($duration / 60)) minutes and $(($duration % 60)) seconds."

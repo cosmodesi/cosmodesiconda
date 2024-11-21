@@ -109,4 +109,4 @@ To install a suite of pyrecon, pycorr, etc. packages::
 
 TD;DR: after logging in to TACC, run::
 
-    cdw; git clone -b TACC https://github.com/cosmodesi/cosmodesiconda.git ; cd cosmodesiconda ; export CONF=tacc ; DCONDAVERSION=my-desiconda PREFIX=$WORK/software/desi/ PKGS=default $WORK/cosmodesiconda/install.sh 2>&1 | tee log ; cd $WORK/software/desi/cosmo/cosmodesiconda/my-desiconda/cobaya/code/PolyChordLite ; make clean ; make COMPILER_TYPE=gnu ; pip install . --user ; cd $WORK
+    cdw; git clone -b TACC https://github.com/cosmodesi/cosmodesiconda.git ; cd cosmodesiconda ; export CONF=tacc ; DCONDAVERSION=my-desiconda PREFIX=$WORK/software/desi/ PKGS=default $WORK/cosmodesiconda/install.sh 2>&1 | tee log
