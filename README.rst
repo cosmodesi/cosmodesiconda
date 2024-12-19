@@ -36,7 +36,7 @@ To install cosmodesiconda and load module::
     export CONF=nersc
     export DCONDAVERSION=$(date '+%Y%m%d')-1.0.0
     PREFIX=/global/common/software/desi/users/$USER COSMOPREFIX=/global/cfs/cdirs/desi/science/cpe/$USER ./install.sh |& tee install.log
-    module use $prefix/$NERSC_HOST/cosmodesiconda/$DCONDAVERSION/modulefiles
+    module use $PREFIX/$NERSC_HOST/cosmodesiconda/$DCONDAVERSION/modulefiles
     module load cosmodesiconda
 
 The installation directory (assuming the installation script was called with 

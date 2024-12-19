@@ -19,6 +19,7 @@ $PYTHON -m pip install parallel_numpy_rng
 pip install torch==2.1.2+cpu -f https://download.pytorch.org/whl/torch_stable.html
 $PYTHON -m pip install tensorflow==2.15.0
 $PYTHON -m pip install --upgrade "jax[cuda12_pip]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+#pip install "jax[cuda12]"
 $PYTHON -m pip install flax
 $PYTHON -m pip install --no-deps interpax equinox jaxtyping blackjax fastprogress jaxopt typeguard
 
