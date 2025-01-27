@@ -9,12 +9,12 @@ conda install --copy --yes -c conda-forge \
     'libblas=*=*mkl' \
     'numpy>=1.16' \
     'scipy>=1.5.0' \
-    'matplotlib=3.7.1' \
+    matplotlib \
     cfitsio \
     fitsio \
     h5py \
     'cython=0.29' \
-    'pyfftw=0.12' \
+    pyfftw \
     sympy \
     numexpr \
     'astropy>=4.0.0' \

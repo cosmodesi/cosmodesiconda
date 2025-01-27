@@ -35,7 +35,8 @@ To install cosmodesiconda and load module::
 
     export CONF=nersc
     export DCONDAVERSION=$(date '+%Y%m%d')-1.0.0
-    PREFIX=/global/common/software/desi/users/$USER COSMOPREFIX=/global/cfs/cdirs/desi/science/cpe/$USER ./install.sh |& tee install.log
+    export PREFIX=/global/common/software/desi/users/$USER
+    COSMOPREFIX=/global/cfs/cdirs/desi/science/cpe/$USER ./install.sh |& tee install.log
     module use $PREFIX/$NERSC_HOST/cosmodesiconda/$DCONDAVERSION/modulefiles
     module load cosmodesiconda
 
@@ -84,11 +85,11 @@ conf/default-pkgs.sh and conf/nersc-env.sh), respectively.
 
 This install.sh script, in the top-level directory, will create the environment
 and install the dependencies and module files. When you run this script, it
-will download many MB of binary and source packages, extract files, and compile things.  It will do this in your current working directory.
+will download many MB of binary and source packages, extract files, and compile things. It will do this in your current working directory.
 Also the output will be very long, so pipe it to a log file::
 
     $> export CONF=myenv
-    $> DCONDAVERSION=my-desiconda PREFIX=$HOME/software/desi PKGS=mypkgs /path-to-git-clone/desiconda2/install.sh 2>&1 | tee log
+    $> DCONDAVERSION=my-desiconda PREFIX=$HOME/software/desi PKGS=mypkgs /path-to-git-clone/cosmodesiconda/install.sh 2>&1 | tee log
 
 If everything worked, then you can see your new desiconda install with::
 

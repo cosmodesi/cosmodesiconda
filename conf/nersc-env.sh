@@ -1,7 +1,7 @@
 # export MINICONDA=https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 # miniforge solves fast and works well with conda-forge 
-export MINICONDA=https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh
-export CONDAVERSION=2.0
+#export MINICONDA=https://github.com/conda-forge/miniforge/releases/download/24.5.0-0/Miniforge3-$(uname)-$(uname -m).sh
+export MINICONDA=https://github.com/conda-forge/miniforge/releases/download/24.1.2-0/Miniforge3-$(uname)-$(uname -m).sh
 export GRP=desi
 export PRGENVS="PrgEnv-gnu PrgEnv-intel PrgEnv-cray PrgEnv-nvidia"
 export CONDAPRGENV=PrgEnv-gnu
@@ -10,10 +10,10 @@ export COSMOINSTALL="classy-pkgs.sh planck-pkgs.sh nersc-cosmosis-pkgs.sh cobaya
 # darshan not necessary and suspected to generate overhead
 # altd not necessary and suspected to cause random job hangs
 # craype-hugepages2M https://docs.nersc.gov/development/languages/python/faq-troubleshooting
-export UNLOADMODULES=""
+export UNLOADMODULES="cudatoolkit"
 #export LOADMODULES="cudatoolkit cudnn/8.9.1_cuda11 nccl/2.17.1-ofi cray-hdf5"
 #export LOADMODULES="cudatoolkit/12.2 cudnn/8.9.3_cuda12 nccl/2.17.1-ofi cray-hdf5"
-export LOADMODULES="gcc-native/12.3 cray-hdf5 cray-mpich cudatoolkit/12.2"
+export LOADMODULES="gcc-native/12.3 cray-hdf5 cray-mpich"
 export HOSTVARIABLE=NERSC_HOST
 
 export CC="gcc"
@@ -31,10 +31,10 @@ if [ "${NERSC_HOST}" == "cori" ] ; then
 elif [ "${NERSC_HOST}" == "perlmutter" ] ; then
   # See https://docs.nersc.gov/development/languages/python/using-python-perlmutter
   export LOADMODULES="${LOADMODULES} texlive"
-  export ENVVARIABLES="MPI4PY_RC_RECV_MPROBE FALSE CXI_FORK_SAFE 1 CXI_FORK_SAFE_HP 1"
-  export MPICC="cc -target-accel=nvidia80 -shared"
+  export ENVVARIABLES="MPI4PY_RC_RECV_MPROBE FALSE MPICH_GPU_SUPPORT_ENABLED FALSE CXI_FORK_SAFE 1 CXI_FORK_SAFE_HP 1"
+  export MPICC="cc -shared"
 fi
-export MPICCPFFT="cc"
+export MPICCPFFT="mpicc"
 export ENVVARIABLES="${ENVVARIABLES} TF_CPP_MIN_LOG_LEVEL 2"
 export ENVVARIABLES_LOGIN="JAX_PLATFORMS cpu"
 export ENVVARIABLES_NODES="JAX_PLATFORMS """

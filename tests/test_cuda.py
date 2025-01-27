@@ -4,6 +4,7 @@ def test_torch():
     import torch
     import math
 
+    print(torch.cuda.get_device_name(0))
 
     class DynamicNet(torch.nn.Module):
         def __init__(self):

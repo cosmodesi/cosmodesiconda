@@ -26,8 +26,7 @@ def test_pycorr():
 
     data, randoms = generate_catalogs()
 
-    from pycorr import TwoPointCorrelationFunction, setup_logging    
-    setup_logging()
+    from pycorr import TwoPointCorrelationFunction
     TwoPointCorrelationFunction(mode='smu', edges=(np.linspace(0., 50., 51), np.linspace(-1., 1., 51)), data_positions1=data[:3],
                                 randoms_positions1=randoms[:3], data_weights1=data[3:], randoms_weights1=randoms[3:], nthreads=1)
     TwoPointCorrelationFunction(mode='smu', edges=(np.linspace(0., 50., 51), np.linspace(-1., 1., 51)), data_positions1=data[:3],
@@ -58,6 +57,9 @@ def test_pyrecon():
 def test_abacusutils():
     # abacusutils
     import abacusnbody.data.compaso_halo_catalog
+    from abacusnbody.data import read_abacus
+    fn = '/global/cfs/cdirs/desi/public/cosmosim/AbacusSummit/AbacusSummit_base_c000_ph000/halos/z0.800/halo_rv_A/halo_rv_A_000.asdf'
+    read_abacus.read_asdf(fn, load=['pos'])['pos']
 
 
 def test_mockfactory():
@@ -86,7 +88,6 @@ def test_desilike():
     for param in likelihood.all_params.select(basename=['df', 'dm']): param.update(fixed=True)
     profiler = MinuitProfiler(likelihood, rescale=True)
     profiles = profiler.maximize(niterations=1)
-
     from desilike.theories.galaxy_clustering import ShapeFitPowerSpectrumTemplate, KaiserTracerPowerSpectrumMultipoles
     theory = KaiserTracerPowerSpectrumMultipoles(template=ShapeFitPowerSpectrumTemplate(z=1.))
     theory()
@@ -114,7 +115,7 @@ def test_inference():
     # No magic here, this is all Cobaya stuff
     params = {'Omega_m': {'prior': {'min': 0.1, 'max': 1.},
                           'ref': {'dist': 'norm', 'loc': 0.3, 'scale': 0.01},
-                          'latex': '\Omega_{m}'},
+                          'latex': r'\Omega_{m}'},
               'omega_b': cosmo['omega_b'],
               'H0': cosmo['H0'],
               'A_s': cosmo['A_s'],
@@ -181,7 +182,11 @@ def test_desihub():
 
 
 if __name__ == '__main__':
+    from mockfactory import setup_logging    
+    setup_logging()
 
+    test_abacusutils()
+    exit()
     test_cosmoprimo()
     test_pycorr()
     test_pypower()

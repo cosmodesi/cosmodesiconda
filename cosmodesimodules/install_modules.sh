@@ -20,7 +20,7 @@ mkdir -p $MODULEDIR
 
 cp $script_dir/*.png $MODULEDIR
 
-for script in $script_dir/versions/* ; do
+for script in $script_dir/versions/*new.gen ; do
     filename=$(basename -- "$script")
     filename="${filename%.*}"
     cp $script_dir/versions/$filename.gen $MODULEDIR/$filename

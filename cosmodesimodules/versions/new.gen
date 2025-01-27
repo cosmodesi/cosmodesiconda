@@ -22,7 +22,7 @@ proc ModulesHelp { } {
 set product cosmodesimodules
 set version current
 conflict $product
-set cosmodesiconda_version 20240118-1.0.0
+set cosmodesiconda_version 20241221-1.0.0
 #
 # The line below is another part of the Modules help system.  You can
 # modify the part in quotes if you really need to, but most products should
@@ -67,7 +67,7 @@ prereq cosmodesiconda
 # Main versions of most modules:
 module load cosmoprimo/main
 module load pyclass/main
-module load pyrecon/mpi
+module load pyrecon/main
 module load pycorr/main
 module load Corrfunc/desi
 module load pypower/main
@@ -80,7 +80,7 @@ module load velocileptors/master
 module load pybird/master
 module load folps/main
 module load folpsax/main
-module load desilike/main
+module load desilike/hmc
 module load desipipe/main
 module load thecov/main
 module load desiutil/main
