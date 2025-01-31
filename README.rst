@@ -174,9 +174,9 @@ To add environment as jupyter kernel::
 cosmodesiconda on your PC
 -------------------------
 
-The current recommended way is to install Modules, see: https://modules.readthedocs.io/en/latest/INSTALL.html#install
+The current recommended way is to install Modules, see: https://modules.readthedocs.io/en/latest/INSTALL.html#install.
 And follow the section above "cosmodesiconda on your cluster".
-You can use the configuration file "conf/pc-env.sh", and::
+You can use the configuration file "conf/pc-env.sh", i.e.::
 
     export CONF=pc
 
@@ -185,6 +185,6 @@ Updating some modules
 ---------------------
 
 To update already-installed modules, in "cosmodesimodules", you can create a file like "pkg_list.txt"
-containing the packages to be updated and called "update_pkg_list.txt", and run::
+containing the packages to be updated and call it "update_pkg_list.txt". Then run::
 
     ./update_pkgs.sh
