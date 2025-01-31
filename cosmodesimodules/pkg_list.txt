@@ -13,7 +13,7 @@ velocileptors @ https://github.com/sfschen/velocileptors @ branches/master
 pybird @ https://github.com/pierrexyz/pybird @ branches/master
 folps @ https://github.com/henoriega/FOLPS-nu @ branches/main
 folpsax @ https://github.com/cosmodesi/folpsax @ branches/main
-desilike @ https://github.com/cosmodesi/desilike @ branches/main,branches/hmc
+desilike @ https://github.com/cosmodesi/desilike @ branches/main
 desipipe @ https://github.com/cosmodesi/desipipe @ branches/main
 thecov @ https://github.com/cosmodesi/thecov @ branches/main
 desiutil @ https://github.com/desihub/desiutil @ branches/main

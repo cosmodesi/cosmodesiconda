@@ -7,7 +7,7 @@ echo condadir is $CONDADIR
 conda install --copy --yes -c conda-forge \
     future \
     'libblas=*=*mkl' \
-    'numpy>=1.16' \
+    'numpy<2.0.0,>=1.16' \
     'scipy>=1.5.0' \
     matplotlib \
     cfitsio \

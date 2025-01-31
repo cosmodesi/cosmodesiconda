@@ -1,7 +1,7 @@
-BASEDIR=$COSMODIR/common/planck
+BASEDIR=$COSMODESICOSMO/common/planck
 rm -rf $BASEDIR
 mkdir -p $BASEDIR
-rm $CONDADIR/lib/libattr*
+rm $COSMODESICONDA/lib/libattr*
 
 TARBALL=COM_Likelihood_Code-v3.0_R3.10.tar.gz
 curl "http://pla.esac.esa.int/pla/aio/product-action?COSMOLOGY.FILE_ID=$TARBALL" -o $TARBALL
@@ -9,7 +9,7 @@ curl "http://pla.esac.esa.int/pla/aio/product-action?COSMOLOGY.FILE_ID=$TARBALL"
 tar -xvzf $TARBALL -C $BASEDIR
 CLIKDIR=$BASEDIR/code/plc_3.0/plc-3.1
 export C_INCLUDE_PATH=$(python -c "from sysconfig import get_path as gp; print(gp(\"include\"))"):$C_INCLUDE_PATH
-(cd $CLIKDIR; CFLAGS="" FCFLAGS="" ./waf configure --cfitsio_prefix=$CONDADIR --lapack_prefix=$CONDADIR; ./waf install)
+(cd $CLIKDIR; CFLAGS="" FCFLAGS="" ./waf configure --cfitsio_prefix=$COSMODESICONDA --lapack_prefix=$COSMODESICONDA; ./waf install)
 rm $TARBALL
 
 TARBALL=COM_Likelihood_Data-baseline_R3.00.tar.gz

@@ -1,5 +1,4 @@
 source $CONFDIR/conda-pkgs.sh
-source $CONFDIR/pip-pkgs.sh
 for sc in $COSMOINSTALL ; do
     if [[ ! -z $sc ]] ; then
         source $CONFDIR/$sc

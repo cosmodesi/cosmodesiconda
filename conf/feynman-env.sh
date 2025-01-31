@@ -1,12 +1,13 @@
 # export MINICONDA=https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 # miniforge solves fast and works well with conda-forge 
-export MINICONDA=https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh
+#export MINICONDA=https://github.com/conda-forge/miniforge/releases/download/24.5.0-0/Miniforge3-$(uname)-$(uname -m).sh
+export MINICONDA=https://github.com/conda-forge/miniforge/releases/download/24.1.2-0/Miniforge3-$(uname)-$(uname -m).sh  # for python 3.10
 export GRP=idphp
 export PRGENVS="gnu9 intel"
 export CONDAPRGENV=gnu9
-export COSMOINSTALL="classy-pkgs.sh planck-pkgs.sh cobaya-pkgs.sh desilike-pkgs.sh desipipe-pkgs.sh"
+export COSMOINSTALL="feynman-pip-pkgs.sh classy-pkgs.sh planck-pkgs.sh" # "cobaya-pkgs.sh desilike-pkgs.sh desipipe-pkgs.sh"
 export UNLOADMODULES=anaconda
-export LOADMODULES="cports/rhel-7.x86_64 gsl hdf5 openmpi"
+export LOADMODULES="cports/rhel-7.x86_64 gsl hdf5 openmpi cfitsio"
 export HOSTVARIABLE=
 
 export CC="gcc"
@@ -18,6 +19,6 @@ export NTMAKE=8
 export MPICC="mpicc"
 export MPICCPFFT="mpicc"
 export ENVVARIABLES="${ENVVARIABLES} DESI_ROOT /drf/projets/desi"
-export ENVVARIABLES_LOGIN="JAX_PLATFORMS cpu"
-export ENVVARIABLES_NODES="JAX_PLATFORMS cpu"
+export ENVVARIABLES_LOGIN="JAX_PLATFORMS """
+export ENVVARIABLES_NODES="JAX_PLATFORMS """
 
