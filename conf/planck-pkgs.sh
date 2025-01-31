@@ -1,4 +1,4 @@
-BASEDIR=$COSMODIR/common/planck
+BASEDIR=$COSMODESICOSMO/common/planck
 rm -rf $BASEDIR
 mkdir -p $BASEDIR
 rm $CONDADIR/lib/libattr*

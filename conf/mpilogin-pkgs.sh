@@ -1,4 +1,4 @@
-# Install pip packages.
+# Outdated: MPI install for NERSC cori login nodes
 echo Installing mpilogin packages at $(date)
 
 prefix=$(realpath $COSMODESICONDA/mpilogin)

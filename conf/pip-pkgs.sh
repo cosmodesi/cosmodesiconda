@@ -5,7 +5,7 @@ PYTHON=$(which python)
 $PYTHON -m pip install 'ipywidgets==8.0.4'
 # see https://docs.nersc.gov/development/languages/python/parallel-python/
 # also https://docs.nersc.gov/development/languages/python/using-python-perlmutter/
-CC=$MPICC $PYTHON -m pip install --force --no-cache-dir --no-binary=mpi4py mpi4py
+MPICC=$MPICC $PYTHON -m pip install --force --no-cache-dir --no-binary=mpi4py mpi4py
 $PYTHON -m pip install --no-cache-dir git+https://github.com/MP-Gadget/pmesh
 $PYTHON -m pip install --no-cache-dir git+https://github.com/adematti/getdist
 # install healpy with pip, as sometimes conda yields WARNING: version mismatch between CFITSIO header (as it reinstalls cfitsio)

@@ -55,27 +55,25 @@ done
 ROOTDIR=$PREFIX
 ROOTDIRHOST=$ROOTDIR
 if [ ! -z $HOSTVARIABLE ] ; then
-    ROOTDIRHOST=$ROOTDIR/${!HOSTVARIABLE}
+  ROOTDIRHOST=$ROOTDIR/${!HOSTVARIABLE}
 fi
-COSMODESICONDA=$ROOTDIRHOST/cosmodesiconda/$DCONDAVERSION
-CONDADIR=$COSMODESICONDA/conda
-AUXDIR=$COSMODESICONDA/aux
-MODULEDIR=$COSMODESICONDA/modulefiles/cosmodesiconda
+DCONDA=$ROOTDIRHOST/cosmodesiconda/$DCONDAVERSION
+CONDADIR=$DCONDA/conda
+MODULEDIR=$DCONDA/modulefiles/cosmodesiconda
 if [ ! -z $COSMOPREFIX ] ; then
-    COSMODIR=$COSMOPREFIX
+  COSMODIR=$COSMOPREFIX
 else
-    COSMODIR=$PREFIX/cosmo
+  COSMODIR=$PREFIX/cosmo
 fi
 if [ ! -z $HOSTVARIABLE ] ; then
-    COSMODIR=$COSMODIR/${!HOSTVARIABLE}
+  COSMODIR=$COSMODIR/${!HOSTVARIABLE}
 fi
 COSMODIR=$COSMODIR/cosmodesiconda/$DCONDAVERSION
+export COSMODESICONDA=$CONDADIR
+export COSMODESICOSMO=$COSMODIR
 
 # Install conda root environment
 echo Installing conda root environment at $(date)
-
-mkdir -p $AUXDIR/bin
-mkdir -p $AUXDIR/lib 
 
 mkdir -p $CONDADIR/bin
 mkdir -p $CONDADIR/lib
@@ -105,7 +103,7 @@ cp $topdir/cosmodesiconda.gen $MODULEFILE
 
 sed -i 's@_ROOTDIR_@'"$ROOTDIR"'@g' $MODULEFILE
 sed -i 's@_CONDADIR_@'"$CONDADIR"'@g' $MODULEFILE
-sed -i 's@_AUXDIR_@'"$AUXDIR"'@g' $MODULEFILE
+sed -i 's@_COSMODIR_@'"$COSMODIR"'@g' $MODULEFILE
 sed -i 's@_DCONDAVERSION_@'"$DCONDAVERSION"'@g' $MODULEFILE
 sed -i 's@_PYVERSION_@'"$PYVERSION"'@g' $MODULEFILE
 sed -i 's@_CONDAPRGENV_@'"$CONDAPRGENV"'@g' $MODULEFILE
@@ -121,7 +119,9 @@ sed -i 's@_LDLIBRARYPATH_@'"$EXPORTLDLIBRARYPATH"'@g' $MODULEFILE
 
 cp cosmodesiconda.modversion $MODULEDIR/.version_$DCONDAVERSION
 
-chgrp -R $GRP $MODULEDIR
+if [ ! -z $GRP ] ; then
+  chgrp -R $GRP $MODULEDIR
+fi
 chmod -R u=rwX,g=rX,o-rwx $MODULEDIR
 
 # All done

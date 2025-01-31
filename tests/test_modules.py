@@ -182,17 +182,15 @@ def test_desihub():
 
 
 if __name__ == '__main__':
-    from mockfactory import setup_logging    
+    from mockfactory import setup_logging
     setup_logging()
 
-    test_abacusutils()
-    exit()
     test_cosmoprimo()
     test_pycorr()
     test_pypower()
     test_pyrecon()
-    test_abacusutils()
     test_mockfactory()
     test_desilike()
     test_inference()
+    test_abacusutils()
     test_desihub()

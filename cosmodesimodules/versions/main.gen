@@ -22,7 +22,7 @@ proc ModulesHelp { } {
 set product cosmodesimodules
 set version current
 conflict $product
-set cosmodesiconda_version 20240118-1.0.0
+set cosmodesiconda_version _DCONDAVERSION_
 #
 # The line below is another part of the Modules help system.  You can
 # modify the part in quotes if you really need to, but most products should
@@ -65,29 +65,29 @@ prereq cosmodesiconda
 #
 
 # Main versions of most modules:
-module load cosmoprimo/main
-module load pyclass/main
-module load pyrecon/mpi
-module load pycorr/main
-module load Corrfunc/desi
-module load pypower/main
-module load abacusutils/main
-module load mpytools/main
-module load mockfactory/main
-module load regressis/main
-module load sysnet/master
-module load velocileptors/master
-module load pybird/master
-module load folps/main
-module load folpsax/main
-module load desilike/main
-module load desipipe/main
-module load thecov/main
-module load desiutil/main
-module load desitarget/main
-module load desimodel/main
-module load desimeter/main
-module load fiberassign/main
+module load --not-req cosmoprimo/main
+module load --not-req pyclass/main
+module load --not-req pyrecon/mpi
+module load --not-req pycorr/main
+module load --not-req Corrfunc/desi
+module load --not-req pypower/main
+module load --not-req abacusutils/main
+module load --not-req mpytools/main
+module load --not-req mockfactory/main
+module load --not-req regressis/main
+module load --not-req sysnet/master
+module load --not-req velocileptors/master
+module load --not-req pybird/master
+module load --not-req folps/main
+module load --not-req folpsax/main
+module load --not-req desilike/main
+module load --not-req desipipe/main
+module load --not-req thecov/main
+module load --not-req desiutil/main
+module load --not-req desitarget/main
+module load --not-req desimodel/main
+module load --not-req desimeter/main
+module load --not-req fiberassign/main
 
 # may solve some OpenMP instabilities at NERSC
 if { [info exists env(NERSC_HOST)] } {
