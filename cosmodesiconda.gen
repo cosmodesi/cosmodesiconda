@@ -46,14 +46,13 @@ unsetenv PYTHONSTARTUP
 
 # This is the conda environment location
 prepend-path PATH _CONDADIR_/bin
-prepend-path PATH _AUXDIR_/bin
 prepend-path PYTHONPATH _CONDADIR_/lib/python_PYVERSION_/site-packages
 setenv COSMODESIROOT _ROOTDIR_
 setenv COSMODESICONDA _CONDADIR_
+setenv COSMODESICOSMO _COSMODIR_
 setenv COSMODESICONDA_VERSION _DCONDAVERSION_
 
 # Add location of conda environment shared objects to search path
-prepend-path LD_LIBRARY_PATH _AUXDIR_/lib
 
 # for basemap; see https://github.com/matplotlib/basemap/issues/419
 setenv PROJ_LIB _CONDADIR_/share/proj

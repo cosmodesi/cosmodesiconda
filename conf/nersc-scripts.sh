@@ -1,1 +1,1 @@
-cp select_gpu_device $CONDADIR/bin/
+cp select_gpu_device $COSMODESICONDA/bin/

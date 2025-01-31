@@ -1,10 +1,11 @@
 PYTHON=$(which python)
 $PYTHON -m pip install cosmosis
 export COSMOSIS_SRC_DIR=$(python -c "import os, cosmosis; print(os.path.dirname(cosmosis.__file__))")
-mkdir -p $COSMODIR/cosmosis
-export COSMOSIS_STD_DIR=$COSMODIR/cosmosis/cosmosis-standard-library
-#rm $CONDADIR/lib/libattr*
+mkdir -p $COSMODESICOSMO/cosmosis
+export COSMOSIS_STD_DIR=$COSMODESICOSMO/cosmosis/cosmosis-standard-library
+#rm $COSMODESICONDA/lib/libattr*
 
+CONFIDR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 source $CONFDIR/setup-cosmosis-nersc.sh
 
 rm -rf $COSMOSIS_STD_DIR

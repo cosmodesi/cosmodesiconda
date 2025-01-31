@@ -1,5 +1,5 @@
 def test_torch():
-    
+
     import random
     import torch
     import math
@@ -82,7 +82,7 @@ def test_tensorflow():
     c = tf.matmul(a, b)
     print(c)
 
-    
+
 def test_jax():
 
     import jax
@@ -149,8 +149,8 @@ def test_flax():
     batch = jnp.ones((32, 10))
     variables = model.init(jax.random.key(0), batch)
     output = model.apply(variables, batch)
-    
-    
+
+
 if __name__ == '__main__':
 
     import os

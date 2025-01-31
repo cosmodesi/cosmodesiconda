@@ -22,7 +22,8 @@ $PYTHON -m pip install "tensorflow==2.11.0"
 $PYTHON -m pip install "flax==0.8.2"
 $PYTHON -m pip install "chex==0.1.86"
 $PYTHON -m pip install "optax==0.2.2"
-$PYTHON -m pip install --no-deps interpax equinox jaxtyping blackjax fastprogress typeguard
+$PYTHON -m pip install "equinox==0.11.4"
+$PYTHON -m pip install --no-deps interpax jaxtyping blackjax fastprogress typeguard
 $PYTHON -m pip install SciencePlots
 $PYTHON -m pip freeze | grep "nvidia*cu11" | xargs pip uninstall -y
 $PYTHON -m pip freeze | grep "jaxlib" | xargs pip uninstall -y

@@ -2,7 +2,7 @@
 
 PYTHON=$(which python)
 $PYTHON -m pip install git+https://github.com/CobayaSampler/cobaya
-export COBAYA_STD_DIR=$COSMODIR/cobaya
+export COBAYA_STD_DIR=$COSMODESICOSMO/cobaya
 rm -rf $COBAYA_STD_DIR
 export COBAYA_PACKAGES_PATH=$COBAYA_STD_DIR
 
