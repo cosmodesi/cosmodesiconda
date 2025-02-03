@@ -3,7 +3,7 @@
 export MINICONDA=https://github.com/conda-forge/miniforge/releases/download/24.5.0-0/Miniforge3-$(uname)-$(uname -m).sh
 #export MINICONDA=https://github.com/conda-forge/miniforge/releases/download/24.1.2-0/Miniforge3-$(uname)-$(uname -m).sh
 export GRP=
-export COSMOINSTALL="classy-pkgs.sh planck-pkgs.sh cobaya-pkgs.sh desilike-pkgs.sh desipipe-pkgs.sh"
+export COSMOINSTALL="pip-pkgs.sh classy-pkgs.sh planck-pkgs.sh cobaya-pkgs.sh desilike-pkgs.sh desipipe-pkgs.sh"
 #export COSMOINSTALL="planck-pkgs.sh"
 # darshan not necessary and suspected to generate overhead
 # altd not necessary and suspected to cause random job hangs
