@@ -6,3 +6,7 @@ export ENVVARIABLES="$ENVVARIABLES DESILIKE_CONFIG_DIR $DESILIKE_CONFIG_DIR DESI
 #PYTHON=$(which python)
 #$PYTHON -m pip install --no-cache-dir git+https://github.com/adematti/PolyChordLite@mpi4py
 #$PYTHON -m desilike-pkgs.py
+
+export COSMOPRIMO_EMULATOR_DIR=$COSMODESICOSMO/cosmoprimo/emulator
+export ENVVARIABLES="$ENVVARIABLES COSMOPRIMO_EMULATOR_DIR $COSMOPRIMO_EMULATOR_DIR"
+

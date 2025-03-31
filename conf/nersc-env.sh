@@ -5,7 +5,7 @@ export MINICONDA=https://github.com/conda-forge/miniforge/releases/download/24.1
 export GRP=desi
 export PRGENVS="PrgEnv-gnu PrgEnv-intel PrgEnv-cray PrgEnv-nvidia"
 export CONDAPRGENV=PrgEnv-gnu
-export COSMOINSTALL="pip-pkgs.sh classy-pkgs.sh planck-pkgs.sh nersc-cosmosis-pkgs.sh cobaya-pkgs.sh desilike-pkgs.sh desipipe-pkgs.sh nersc-scripts.sh"
+export COSMOINSTALL="pip-pkgs.sh camb-pkgs.sh classy-pkgs.sh planck-pkgs.sh nersc-cosmosis-pkgs.sh cobaya-pkgs.sh desilike-pkgs.sh desipipe-pkgs.sh nersc-scripts.sh"
 #export COSMOINSTALL="planck-pkgs.sh"
 # darshan not necessary and suspected to generate overhead
 # altd not necessary and suspected to cause random job hangs

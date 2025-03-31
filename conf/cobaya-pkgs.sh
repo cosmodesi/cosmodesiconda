@@ -8,10 +8,10 @@ export COBAYA_PACKAGES_PATH=$COBAYA_STD_DIR
 
 mkdir -p $COBAYA_PACKAGES_PATH/code/planck
 
-cobaya-install bicep_keck_2018 sn.pantheon bao.sdss_dr12_consensus_final bao.sixdf_2011_bao bao.sdss_dr7_mgs bao.sdss_dr16_baoplus_lrg bao.sdss_dr16_baoplus_elg bao.sdss_dr16_baoplus_qso bao.sdss_dr16_baoplus_lyauto bao.sdss_dr16_baoplus_lyxqso des_y1.joint planck_2018_highl_plik.TTTEEE planck_2018_lowl.TT planck_2018_lowl.EE planck_2018_highl_CamSpec2021.TTTEEE planck_NPIPE_highl_CamSpec.TEEE planck_NPIPE_highl_CamSpec.TTTEEE planck_2018_highl_plik.TT_lite_native -p $COBAYA_STD_DIR
+cobaya-install bicep_keck_2018 sn.pantheon bao.sdss_dr12_consensus_final bao.sixdf_2011_bao bao.sdss_dr7_mgs bao.sdss_dr16_baoplus_lrg bao.sdss_dr16_baoplus_elg bao.sdss_dr16_baoplus_qso bao.sdss_dr16_baoplus_lyauto bao.sdss_dr16_baoplus_lyxqso des_y1.joint planck_2018_highl_plik.TTTEEE planck_2018_lowl.TT planck_2018_lowl.EE planck_2018_highl_CamSpec2021.TTTEEE planck_NPIPE_highl_CamSpec.TEEE planck_NPIPE_highl_CamSpec.TTTEEE planck_2018_highl_plik.TT_lite_native planck_2018_lowl.EE_sroll2 mflike.TTTEEE -p $COBAYA_STD_DIR
 $PYTHON -m pip install git+https://github.com/carronj/planck_PR4_lensing
 $PYTHON -m pip install --no-cache-dir git+https://github.com/HTJense/pyWMAP
-cobaya-install wmaplike.WMAPLike
+cobaya-install wmaplike.WMAPLike --just-data
 wget https://raw.githubusercontent.com/HTJense/pyWMAP/main/eval_wmap.yaml .
 cobaya-run eval_wmap.yaml  # to install sz_spectra
 rm eval_wmap.yaml
@@ -19,10 +19,10 @@ rm -rf chains
 $PYTHON -m pip install planck-2020-hillipop planck-2020-lollipop
 $PYTHON -m pip install git+https://github.com/ACTCollaboration/pyactlike
 $PYTHON -m pip install git+https://github.com/xgarrido/spt_likelihoods.git
-cobaya-install spt3g_2020.TEEE spt3g_2022.TTTEEE
+cobaya-install spt3g_2020.TEEE spt3g_2022.TTTEEE --just-data
 
 #git clone https://github.com/planck-npipe/hillipop.git
-#cobaya-install hillipop/examples/hillipop_example.yaml
+#cobaya-install hillipop/examples/hillipop_example.yaml --just-data
 #rm -rf hillipop
 
 git clone https://github.com/PolyChord/PolyChordLite.git
@@ -44,3 +44,13 @@ ln -s $ACT_DIR/v$version $ACT_SYMLINK/v$version
 export ENVVARIABLES="$ENVVARIABLES COBAYA_STD_DIR $COBAYA_STD_DIR COBAYA_PACKAGES_PATH $COBAYA_PACKAGES_PATH COBAYA_USE_FILE_LOCKING F"
 rm -rf $COBAYA_PACKAGES_PATH/code/planck/clik-main
 ln -s $PLANCK_SRC_DIR/code/plc_3.0/plc-3.1 $COBAYA_PACKAGES_PATH/code/planck/clik-main  # installed by planck-pkgs.sh
+
+git clone https://github.com/ACTCollaboration/DR6-ACT-lite.git
+(cd DR6-ACT-lite && $PYTHON -m pip install .)
+cobaya-install act_dr6_cmbonly -p $COBAYA_PACKAGES_PATH --just-data
+rm -rf DR6-ACT-lite
+
+git clone https://github.com/ACTCollaboration/act_dr6_mflike
+(cd act_dr6_mflike && $PYTHON -m pip install .)
+cobaya-install act_dr6_mflike/examples/act_dr6_example.yml -p $COBAYA_PACKAGES_PATH --just-data
+rm -rf act_dr6_mflike

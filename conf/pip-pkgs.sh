@@ -10,6 +10,7 @@ $PYTHON -m pip install --no-cache-dir git+https://github.com/MP-Gadget/pmesh
 $PYTHON -m pip install --no-cache-dir git+https://github.com/adematti/getdist
 # install healpy with pip, as sometimes conda yields WARNING: version mismatch between CFITSIO header (as it reinstalls cfitsio)
 $PYTHON -m pip install --no-cache-dir --no-deps healpy camb isitgr emcee dynesty zeus-mcmc schwimmbad dill corner iminuit Py-BOBYQA bigfile hankl chainconsumer pydantic  # pydantic for chainconsumer
+$PYTHON -m pip install --no-cache-dir --no-deps git+https://github.com/adematti/MGCAMB
 $PYTHON -m pip install --no-cache-dir --no-deps git+https://github.com/minaskar/pocomc.git
 # for abacusutils
 $PYTHON -m pip install --no-cache-dir 'blosc>=1.9.2' # for some reason, ImportError when conda install
@@ -17,7 +18,7 @@ $PYTHON -m pip install parallel_numpy_rng
 # ML
 #$PYTHON pip install torch==2.1.2+cpu -f https://download.pytorch.org/whl/torch_stable.html
 #$PYTHON -m pip install tensorflow==2.15.0
-$PYTHON -m pip install --upgrade "jax[cuda12_pip]"  -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+$PYTHON -m pip install --upgrade "jax[cuda12_pip]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 $PYTHON -m pip install "tensorflow==2.15.0"
 $PYTHON -m pip install torch
 $PYTHON -m pip install flax
