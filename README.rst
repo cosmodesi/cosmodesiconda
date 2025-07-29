@@ -17,13 +17,42 @@ To setup environment::
 
     source /global/common/software/desi/users/adematti/cosmodesi_environment.sh main
 
-To add environment as jupyter kernel::
+You can also load the environment automatically on terminal login (excluding Jupyter) by adding the following code to your ``~/.bash_profile`` (or analogous user profile files for shells other than ``bash``, but that might be riskier):
+
+.. code-block:: bash
+
+    if [[ -z ${NERSC_JUPYTER+x} ]]; then
+        source /global/common/software/desi/users/adematti/cosmodesi_environment.sh main
+    fi
+
+But you may want to avoid this if you need to run jobs without the ``cosmodesi`` environment — they should run your ``~/.bash_profile`` before execution.
+
+To install the ``cosmodesi`` environment Jupyter kernel::
 
     ${COSMODESIMODULES}/install_jupyter_kernel.sh main
 
 
-Tips
-~~~~
+VS Code remote SSH
+^^^^^^^^^^^^^^^^^^
+
+Python code highlighting should work if you load the ``cosmodesi`` environment and select the Python interpreter (in VS Code, press Ctrl+Shift+P on Linux/Windows or Cmd+Chift+P on macOS, type `Python: Select Interpreter` and select ``/global/common/software/desi/users/adematti/perlmutter/cosmodesiconda/20240118-1.0.0/conda/bin/python`` or something similar).
+You may need to do this in each workspace (folder) you open at NERSC.
+
+To use the ``cosmodesi`` Jupyter kernel in VS Code Jupyter:
+
+#. Open a Jupyter notebook in VS Code;
+#. `Select kernel` (on top right);
+#. If you see ``cosmodesi``, select it, otherwise continue:
+#. `Select another kernel` (in the drop-down menu from the top);
+#. `Jupyter kernel` (in the drop-down menu from the top too);
+#. ``cosmodesi`` should be listed if you have it installed in your user dir. If you have installed the Jupyter kernel but do not see it here, continue:
+#. Enter the command pallette (Ctrl+Shift+P on Linux/Windows or Cmd+Chift+P on macOS) and type `Jupyter: Select Intepreter to start jupyter notebook server`;
+#. Select an interpreter with a path that looks like NERSC (e.g., ``/global/common/software/desi/users/adematti/perlmutter/cosmodesiconda/20240118-1.0.0/conda/bin/python`` again) and not your computer and try again from the beginning.
+
+However, note that (annoyingly) the notebook metadata is *slightly* different between the NERSC JupyterHub and VS Code Jupyter even with the same kernel(s), so you might want to stick to one or another to avoid unnecessary changes back and forth (especially for git version control).
+
+Customizing packages
+^^^^^^^^^^^^^^^^^^^^
 
 If you would like to install a package "yourpackage" that is not originally in the cosmodesi environment, you can do so in your home following e.g.::
 
