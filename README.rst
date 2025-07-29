@@ -17,9 +17,7 @@ To setup environment::
 
     source /global/common/software/desi/users/adematti/cosmodesi_environment.sh main
 
-You can also load the environment automatically on terminal login (excluding Jupyter) by adding the following code to your ``~/.bash_profile`` (or analogous user profile files for shells other than ``bash``, but that might be riskier):
-
-.. code-block:: bash
+You can also load the environment automatically on terminal login (excluding Jupyter) by adding the following code to your ``~/.bash_profile`` (or analogous user profile files for shells other than ``bash``, but that might be riskier)::
 
     if [[ -z ${NERSC_JUPYTER+x} ]]; then
         source /global/common/software/desi/users/adematti/cosmodesi_environment.sh main
