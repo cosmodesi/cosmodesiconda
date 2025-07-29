@@ -31,7 +31,7 @@ To install the ``cosmodesi`` environment Jupyter kernel::
 
 
 VS Code remote SSH
-^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~
 
 Python code highlighting should work if you load the ``cosmodesi`` environment and select the Python interpreter (in VS Code, press Ctrl+Shift+P on Linux/Windows or Cmd+Chift+P on macOS, type `Python: Select Interpreter` and select ``/global/common/software/desi/users/adematti/perlmutter/cosmodesiconda/20240118-1.0.0/conda/bin/python`` or something similar).
 You may need to do this in each workspace (folder) you open at NERSC.
@@ -49,8 +49,9 @@ To use the ``cosmodesi`` Jupyter kernel in VS Code Jupyter:
 
 However, note that (annoyingly) the notebook metadata is *slightly* different between the NERSC JupyterHub and VS Code Jupyter even with the same kernel(s), so you might want to stick to one or another to avoid unnecessary changes back and forth (especially for git version control).
 
+
 Customizing packages
-^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~
 
 If you would like to install a package "yourpackage" that is not originally in the cosmodesi environment, you can do so in your home following e.g.::
 
