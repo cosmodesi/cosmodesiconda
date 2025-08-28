@@ -157,7 +157,7 @@ if __name__ == '__main__':
     os.environ['XLA_PYTHON_CLIENT_MEM_FRACTION'] = '.2'
     #print(os.getenv('SLURM_LOCALID'))
     #os.environ['CUDA_VISIBLE_DEVICES'] = os.getenv('SLURM_LOCALID')
-    #test_torch()
+    test_torch()
     test_tensorflow()
     test_jax()
     test_flax()

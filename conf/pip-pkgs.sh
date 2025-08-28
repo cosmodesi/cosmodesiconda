@@ -6,7 +6,8 @@ $PYTHON -m pip install 'ipywidgets==8.0.4'
 # see https://docs.nersc.gov/development/languages/python/parallel-python/
 # also https://docs.nersc.gov/development/languages/python/using-python-perlmutter/
 MPICC=$MPICC $PYTHON -m pip install --force --no-cache-dir --no-binary=mpi4py mpi4py
-$PYTHON -m pip install --no-cache-dir git+https://github.com/MP-Gadget/pmesh
+MPICC="" $PYTHON -m pip install --no-cache-dir git+https://github.com/MP-Gadget/pfft-python
+MPICC="" $PYTHON -m pip install --no-cache-dir git+https://github.com/MP-Gadget/pmesh
 $PYTHON -m pip install --no-cache-dir git+https://github.com/adematti/getdist
 # install healpy with pip, as sometimes conda yields WARNING: version mismatch between CFITSIO header (as it reinstalls cfitsio)
 $PYTHON -m pip install --no-cache-dir --no-deps healpy camb isitgr emcee dynesty zeus-mcmc schwimmbad dill corner iminuit Py-BOBYQA bigfile hankl chainconsumer pydantic  # pydantic for chainconsumer
@@ -18,9 +19,9 @@ $PYTHON -m pip install parallel_numpy_rng
 # ML
 #$PYTHON pip install torch==2.1.2+cpu -f https://download.pytorch.org/whl/torch_stable.html
 #$PYTHON -m pip install tensorflow==2.15.0
-$PYTHON -m pip install --upgrade "jax[cuda12_pip]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
-$PYTHON -m pip install "tensorflow==2.15.0"
-$PYTHON -m pip install torch
+$PYTHON -m pip install --upgrade "jax[cuda12]==0.5.3"
+$PYTHON -m pip install "tensorflow==2.18.0" gast
+$PYTHON -m pip install "torch==2.6.0" pytorch-lightning
 $PYTHON -m pip install flax
 $PYTHON -m pip install --no-deps interpax equinox jaxtyping blackjax fastprogress jaxopt typeguard
 #$PYTHON -m pip install torch==2.0.1+cu117 torchvision==0.15.2+cu117 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu117
@@ -33,6 +34,7 @@ $PYTHON -m pip install optax
 $PYTHON -m pip install SciencePlots
 $PYTHON -m pip install numpyro
 $PYTHON -m pip install "diffrax==0.5.0"
+$PYTHON -m pip install jaxdecomp
 # Just for docs
 $PYTHON -m pip install sphinx sphinx-rtd-theme
 

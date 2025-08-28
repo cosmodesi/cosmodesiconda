@@ -1,3 +1,5 @@
+cucount @ https://github.com/adematti/cucount @ branches/main
+jaxpower @ https://github.com/adematti/jax-power @ branches/main
 cosmoprimo @ https://github.com/cosmodesi/cosmoprimo @ branches/main
 pyclass @ https://github.com/adematti/pyclass @ branches/main
 pyrecon @ https://github.com/cosmodesi/pyrecon @ branches/main,branches/mpi

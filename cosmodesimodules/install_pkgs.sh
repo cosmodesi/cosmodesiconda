@@ -29,7 +29,7 @@ while read line || [[ -n "$line" ]] ; do
     for version in ${versions[@]} ; do
         version=$(echo ${version} | xargs)
         echo $install_script $pkg $version
-        python $install_script -v -r $base $pkg $version -p $pkg:$url $2
+        python $install_script -v -r $base $pkg $version -p $pkg:$url "${@:2}"
     done
 done < $1
 

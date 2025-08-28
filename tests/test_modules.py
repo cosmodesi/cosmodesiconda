@@ -116,15 +116,11 @@ def test_inference():
     params = {'Omega_m': {'prior': {'min': 0.1, 'max': 1.},
                           'ref': {'dist': 'norm', 'loc': 0.3, 'scale': 0.01},
                           'latex': r'\Omega_{m}'},
-              'omega_b': cosmo['omega_b'],
-              'H0': cosmo['H0'],
-              'A_s': cosmo['A_s'],
-              'n_s': cosmo['n_s'],
-              'tau_reio': cosmo['tau_reio']}
+              **{name: float(cosmo[name]) for name in ['omega_b', 'H0', 'A_s', 'n_s', 'tau_reio']}}
 
     info = {'params': params,
             'likelihood': {'planck_2018_highl_plik.TTTEEE': None, 'sn.pantheon': None},
-            'theory': {'classy': {'extra_args': {'m_ncdm': cosmo['m_ncdm'][0], 'N_ncdm': cosmo['N_ncdm'], 'N_ur': cosmo['N_ur']}}}}
+            'theory': {'classy': {'extra_args': {'m_ncdm': float(cosmo['m_ncdm'][0]), 'N_ncdm': int(cosmo['N_ncdm']), 'N_ur': int(cosmo['N_ur'])}}}}
 
     info_sampler = {'evaluate': {}}
     from cobaya.model import get_model
@@ -194,3 +190,4 @@ if __name__ == '__main__':
     test_inference()
     test_abacusutils()
     test_desihub()
+    test_inference()
